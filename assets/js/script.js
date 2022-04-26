@@ -59,7 +59,7 @@ function showQuestion(question) {
   progressBar.style = question.style;
 };
 
-nextBtn.addEventListener("click", ()=> {
+nextBtn.addEventListener("click", () => {
   currentQuestion++;
   // getData();
   setNextQuestion();
@@ -69,18 +69,10 @@ nextBtn.addEventListener("click", ()=> {
 // Open modal with Get started button
 
 getStartedBtn.onclick = function () {
-<<<<<<< HEAD
   surveyModal.style.display = "flex";
-}
-
-// Closes modal with Close button
-
-=======
-  surveyModal.style.display = "block";
   setNextQuestion();
 }
 
->>>>>>> 8c01097af41b1a56fd27d9d039e3136be6cdc395
 closeBtn.onclick = function () {
   surveyModal.style.display = "none";
 }
