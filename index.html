@@ -139,6 +139,7 @@
       transition duration-150 ease-in-out">GET STARTED!</button>
   </div>
 
+  <!--Questions Section-->
   <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto"
     id="surveyModal" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-modal="true" aria-hidden="true"
     role="dialog">
@@ -147,7 +148,7 @@
         class="modal-content border-none shadow-lg relative flex flex-col w-1/2 pointer-events-auto bg-gray-50 bg-clip-padding rounded-md outline-none text-current">
         <div
           class="modal-header flex flex-shrink-0 items-center justify-center p-4 border-b border-gray-200 rounded-t-md">
-          <h5 class="text-xl font-medium leading-normal text-indigo-500 text-center" id="exampleModalScrollableLabel">
+          <h5 class="text-xl font-medium leading-normal text-indigo-500 text-center" id="questionLabel">
             Question 1/5
           </h5>
           <button type="button"
@@ -155,7 +156,7 @@
             data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body relative p-4 text-center">
-          <p>How much do you spend?</p>
+          <p id="mainQuestion">How much do you spend?</p>
         </div>
         <div class="flex justify-center items-center">
           <div class="mb-2">
@@ -169,7 +170,7 @@
         <br>
         <div class="flex justify-center mb-1 text-base font-medium text-slate-700">Progress</div>
         <div class="mb-1 w-full bg-gray-200 rounded-full h-2.5">
-          <div class="bg-green-600 h-2.5 rounded-full" style="width: 20%"></div>
+          <div id="progressBar" class="transition-all ease-out duration-1000 bg-green-600 h-2.5 rounded-full" style="width: 0%"></div>
         </div>
         <br>
         <div
@@ -180,7 +181,8 @@
             Close
           </button>
           <button type="button"
-            class="inline-block px-6 py-2.5 bg-emerald-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-emerald-700 hover:shadow-lg focus:bg-emerald-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-emerald-800 active:shadow-lg transition duration-150 ease-in-out ml-1">
+            class="inline-block px-6 py-2.5 bg-emerald-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-emerald-700 hover:shadow-lg focus:bg-emerald-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-emerald-800 active:shadow-lg transition duration-150 ease-in-out ml-1"
+            id="nextSurveyBtn">
             Next
           </button>
         </div>
