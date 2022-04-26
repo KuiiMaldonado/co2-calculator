@@ -66,8 +66,6 @@ nextBtn.addEventListener("click", () => {
 }
 );
 
-// Open modal with Get started button
-
 getStartedBtn.onclick = function () {
   surveyModal.style.display = "flex";
   setNextQuestion();
@@ -77,13 +75,13 @@ closeBtn.onclick = function () {
   surveyModal.style.display = "none";
 }
 
-// Closes modal while clicking outside it
-
 window.onclick = function (event) {
   if (event.target == surveyModal) {
     surveyModal.style.display = "none";
   }
 }
+
+
 //Geolocation API
 function getLocationWeather(position) {
 
