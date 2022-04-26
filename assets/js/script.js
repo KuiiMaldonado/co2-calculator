@@ -1,21 +1,86 @@
+
+let getStartedBtn = document.getElementById("getStartedBtn")
+let surveyModal = document.getElementById("surveyModal")
+let closeBtn = document.getElementById("closeSurveyBtn")
+let nextBtn = document.getElementById("nextSurveyBtn")
+let questionNumber = document.querySelector("#questionLabel");
+let mainQuestion = document.querySelector("#mainQuestion");
+let progressBar = document.querySelector("#progressBar");
+
 const WEATHER_API_URL = 'https://api.openweathermap.org/';
 const WEATHER_API_KEY = '865284dc0e4d44eddd23a2592bd48d0a';
 
 var weather = {};
-var getStartedBtn = document.getElementById("getStartedBtn");
-var surveyModal = document.getElementById("surveyModal");
-var closeBtn = document.getElementById("closeSurveyBtn");
-var nextBtn = document.getElementById("nextSurveyBtn");
+let currentQuestion = 0;
 
+const questions = [
+  {
+    question: "On average, how much do you spend on clothes on a monthly basis?",
+    number: "Question 1/5",
+    id: "dataWeWillFetch",
+    style: "width: 20%",
+  },
+  {
+    question: "On average, how much do you spend on fuel on a monthly basis?",
+    number: "Question 2/5",
+    id: "dataWeWillFetch",
+    style: "width: 40%",
+  },
+  {
+    question: "On average, how much do you spend on electricity on a monthly basis?",
+    number: "Question 3/5",
+    id: "dataWeWillFetch",
+    style: "width: 60%",
+  },
+  {
+    question: "On average, how much do you spend on compressed gas (for gaslit stoves, gaslit water heaters) on a monthly basis?",
+    number: "Question 4/5",
+    id: "dataWeWillFetch",
+    style: "width: 80%",
+  },
+  {
+    question: "On average, how much do you spend on Amazon or other delivery retailers on a monthly basis?",
+    number: "Question 5/5",
+    id: "dataWeWillFetch",
+    style: "width: 100%",
+  },
+];
+
+function setNextQuestion() {
+  showQuestion(questions[currentQuestion]);
+};
+// Call the current question array
+function showQuestion(question) {
+  // Set the question text in the "main" title
+  mainQuestion.innerHTML = question.question;
+  // Set the question number in the "number" title
+  questionNumber.innerHTML = question.number;
+  // Change progressBar style, which in turn will make it bigger
+  progressBar.style = question.style;
+};
+
+nextBtn.addEventListener("click", ()=> {
+  currentQuestion++;
+  // getData();
+  setNextQuestion();
+}
+);
 
 // Open modal with Get started button
 
 getStartedBtn.onclick = function () {
+<<<<<<< HEAD
   surveyModal.style.display = "flex";
 }
 
 // Closes modal with Close button
 
+=======
+  surveyModal.style.display = "block";
+  setNextQuestion();
+}
+
+>>>>>>> 8c01097af41b1a56fd27d9d039e3136be6cdc395
 closeBtn.onclick = function () {
   surveyModal.style.display = "none";
 }
