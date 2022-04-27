@@ -59,7 +59,7 @@ function showQuestion(question) {
   progressBar.style = question.style;
 };
 
-nextBtn.addEventListener("click", ()=> {
+nextBtn.addEventListener("click", () => {
   currentQuestion++;
   // getData();
   setNextQuestion();
@@ -67,13 +67,20 @@ nextBtn.addEventListener("click", ()=> {
 );
 
 getStartedBtn.onclick = function () {
-  surveyModal.style.display = "block";
+  surveyModal.style.display = "flex";
   setNextQuestion();
 }
 
 closeBtn.onclick = function () {
   surveyModal.style.display = "none";
 }
+
+window.onclick = function (event) {
+  if (event.target == surveyModal) {
+    surveyModal.style.display = "none";
+  }
+}
+
 
 //Geolocation API
 function getLocationWeather(position) {
