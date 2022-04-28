@@ -81,35 +81,45 @@ window.onclick = function (event) {
   }
 }
 
-
 //Geolocation API
-function getLocationWeather(position) {
+function getCityName() {
 
-  let coordinates = position.coords;
-  let requestURL = WEATHER_API_URL + 'data/2.5/onecall?lat=' + coordinates.latitude + '&lon=' + coordinates.longitude + '&units=metric' + '&appid=' + WEATHER_API_KEY;
+  let requestURL = WEATHER_API_URL + 'geo/1.0/reverse?lat=' + weather.latitude + '&lon=' + weather.longitude + '&limit=1' + '&appid=' + WEATHER_API_KEY;
 
   fetch(requestURL).then(function (response) {
     return response.json();
   }).then(function (data) {
     console.log(data);
+    let weatherElement = document.getElementById('weather');
+
+    weather.city = data[0].name;
+    weatherElement.innerHTML = '<h1>' + weather.city + ' ' + weather.date + ' Temp: ' + weather.temp + '</h1> <img src="' + weather.icon +'"/>';
+
+  })
+}
+
+function getLocationWeather(position) {
+
+  let coordinates = position.coords;
+  let requestURL = WEATHER_API_URL + 'data/2.5/onecall?lat=' + coordinates.latitude + '&lon=' + coordinates.longitude + '&units=metric' + '&appid=' + WEATHER_API_KEY;
+  weather.latitude = coordinates.latitude;
+  weather.longitude = coordinates.longitude;
+
+  fetch(requestURL).then(function (response) {
+    return response.json();
+  }).then(function (data) {
 
     let date = new Date(data.current.dt * 1000);
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
     let day = date.getDate();
-    let weatherElement = document.getElementById('weather-span');
 
     weather.date = day + '/' + month + '/' + year;
     weather.temp = data.current.temp + ' °C';
     weather.humidity = data.current.humidity;
     weather.icon = 'http://openweathermap.org/img/w/' + data.current.weather[0].icon + '.png';
 
-    weatherElement.innerHTML = weather.date + ' ' + weather.temp + ' <img src="' + weather.icon +'"/>';
-
-    console.log(weather.date);
-    console.log(weather.temp);
-    console.log(weather.humidity);
-    console.log(weather.icon);
+    getCityName();
   });
 }
 
@@ -149,10 +159,6 @@ function doAction() {
   }
 
 }
-
-
-
-
 
 function one() {
   console.log("testing 1")
