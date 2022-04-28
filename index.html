@@ -153,12 +153,10 @@
     <div class="modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
       <div
         class="modal-header flex flex-shrink-0 items-center justify-center p-4 border-b border-gray-200 rounded-t-md">
-        <h5 class="text-xl font-medium leading-normal text-indigo-500 text-center" id="questionLabel">
-          Question 1/5
-        </h5>
+        <h5 class="text-xl font-medium leading-normal text-indigo-500 text-center" id="questionLabel"></h5>
       </div>
       <div class="modal-body relative p-4 text-center">
-        <p id="mainQuestion">How much do you spend?</p>
+        <p id="mainQuestion"></p>
       </div>
       <div class="flex justify-center items-center">
         <div class="mb-2">
@@ -170,7 +168,7 @@
         </div>
       </div>
       <br>
-      <div class="flex justify-center mb-1 text-base font-medium text-slate-700">Progress</div>
+      <div class="flex justify-center mb-1 text-base font-medium text-slate-700" id="progress-div">Progress</div>
       <div class="progress-bar-container flex justify-center">
         <div class="mb-1 w-1/2 bg-gray-200 rounded-full h-2.5 relative">
           <div id="progressBar" class="transition-all ease-out duration-1000 bg-green-600 h-2.5 rounded-full"
