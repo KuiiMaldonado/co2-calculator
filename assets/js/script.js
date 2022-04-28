@@ -167,11 +167,6 @@ function one() {
   var money = moneyinput.value
   var moneynumberone = parseInt(money)
 
-  //function setAmount(){
-  //  calcAverageOne = moneynumberone
-  //}
-  
-
   console.log("money amount selected (as string)" + money)
   console.log(moneynumberone)
 
@@ -430,12 +425,6 @@ var average = document.getElementById("average")
 
 function calcAverageMoney(){
 
-    //average.textContent = calcAverageOne + calcAverageTwo +
-    //calcAverageThree + calcAverageFour + calcAverageFive /5 ;
-
-    //var averageCalcTest = moneynumberone + moneynumbertwo +
-    //moneynumberthree + moneynumberfour + moneynumberfive / 5
-
     const result = (calcAverageOne + calcAverageTwo +
     calcAverageThree + calcAverageFour + calcAverageFive) /5 
 
@@ -447,12 +436,6 @@ function calcAverageMoney(){
     console.log("average money result (in function)" + result)
 
     moneyAverage = result
-
-    //console.log(calcAverageThree)
-
-    //console.log(calcAverage)
-
-
 }
 var moneyAverage = ""
 
