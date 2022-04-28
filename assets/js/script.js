@@ -97,11 +97,14 @@ function getLocationWeather(position) {
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
     let day = date.getDate();
+    let weatherElement = document.getElementById('weather-span');
 
     weather.date = day + '/' + month + '/' + year;
-    weather.temp = data.current.temp;
+    weather.temp = data.current.temp + ' °C';
     weather.humidity = data.current.humidity;
     weather.icon = 'http://openweathermap.org/img/w/' + data.current.weather[0].icon + '.png';
+
+    weatherElement.innerHTML = weather.date + ' ' + weather.temp + ' <img src="' + weather.icon +'"/>';
 
     console.log(weather.date);
     console.log(weather.temp);

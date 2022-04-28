@@ -4,6 +4,15 @@
   justify-content: center;
 }
 
+#weather {
+  display: flex;
+}
+
+#weather h1{
+  color: white;
+  font-size: 1.5rem;
+}
+
 .results-container {
   width: 400px;
 }
