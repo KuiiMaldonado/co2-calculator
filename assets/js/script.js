@@ -52,7 +52,11 @@ var headersList = {
   'Authorization': 'Bearer JVWEJDSK4P45TTN9JJPQ09BGZTX9',
   'Content-Type': 'application/json'
 };
-var bodyContent = {};
+var parameters = {
+  'money': 0,
+  'money_unit': 'mxn'
+};
+var bodyContent;
 
 
 function setNextQuestion() {
@@ -193,13 +197,10 @@ function one() {
   console.log("money amount selected (as string)" + money)
   console.log(moneynumberone)
 
-  let bodyContent = JSON.stringify({
-
+  parameters.money = moneynumberone;
+  bodyContent = JSON.stringify({
     "emission_factor": "consumer_goods-type_clothing",
-    "parameters": {
-      "money": moneynumberone,
-      "money_unit": "mxn"
-    }
+    parameters
   });
 
   function getdata() {
@@ -237,13 +238,10 @@ function two() {
   var money = moneyinput.value
   var moneynumbertwo = parseInt(money)
 
-  let bodyContent = JSON.stringify({
-
+  parameters.money = moneynumbertwo;
+  bodyContent = JSON.stringify({
     "emission_factor": "passenger_vehicle-vehicle_type_automobiles-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na",
-    "parameters": {
-      "money": moneynumbertwo,
-      "money_unit": "mxn"
-    }
+    parameters
   });
 
   function getdata() {
@@ -281,13 +279,10 @@ function three() {
   var money = moneyinput.value
   var moneynumberthree = parseInt(money)
 
-  let bodyContent = JSON.stringify({
-
+  parameters.money = moneynumberthree;
+  bodyContent = JSON.stringify({
     "emission_factor": "electricity-energy_source_electricity",
-    "parameters": {
-      "money": moneynumberthree,
-      "money_unit": "mxn"
-    }
+    parameters
   });
 
   function getdata() {
@@ -327,13 +322,10 @@ function four() {
   var money = moneyinput.value
   var moneynumberfour = parseInt(money)
 
-  let bodyContent = JSON.stringify({
-
+  parameters.money = moneynumberfour;
+  bodyContent = JSON.stringify({
     "emission_factor": "fuel_type_natural_gas-fuel_use_na",
-    "parameters": {
-      "money": moneynumberfour,
-      "money_unit": "mxn"
-    }
+    parameters
   });
 
   function getdata() {
@@ -371,13 +363,10 @@ function five() {
   var money = moneyinput.value
   var moneynumberfive = parseInt(money)
 
-  let bodyContent = JSON.stringify({
-
+  parameters.money = moneynumberfive;
+  bodyContent = JSON.stringify({
     "emission_factor": "freight_vehicle-vehicle_type_na-fuel_source_na-vehicle_weight_na-percentage_load_na",
-    "parameters": {
-      "money": moneynumberfive,
-      "money_unit": "mxn"
-    }
+    parameters
   });
 
   function getdata() {
