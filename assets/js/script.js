@@ -1,17 +1,13 @@
-let getStartedBtn = document.getElementById("getStartedBtn")
-let surveyModal = document.getElementById("surveyModal")
-let closeBtn = document.getElementById("closeSurveyBtn")
-let nextBtn = document.getElementById("nextSurveyBtn")
-let questionNumber = document.querySelector("#questionLabel");
-let mainQuestion = document.querySelector("#mainQuestion");
-let progressBar = document.querySelector("#progressBar");
+var getStartedBtn = document.getElementById("getStartedBtn")
+var surveyModal = document.getElementById("surveyModal")
+var closeBtn = document.getElementById("closeSurveyBtn")
+var nextBtn = document.getElementById("nextSurveyBtn")
+var questionNumber = document.querySelector("#questionLabel");
+var mainQuestion = document.querySelector("#mainQuestion");
+var progressBar = document.querySelector("#progressBar");
 
-const WEATHER_API_URL = 'https://api.openweathermap.org/';
-const WEATHER_API_KEY = '865284dc0e4d44eddd23a2592bd48d0a';
-
-var weather = {};
-let currentQuestion = 0;
-
+//vars for questions
+var currentQuestion = 0;
 const questions = [
   {
     question: "On average, how much do you spend on clothes on a monthly basis?",
@@ -45,6 +41,20 @@ const questions = [
   },
 ];
 
+//vars used in the weather API calls
+const WEATHER_API_URL = 'https://api.openweathermap.org/';
+const WEATHER_API_KEY = '865284dc0e4d44eddd23a2592bd48d0a';
+var weather = {};
+
+//var used in the ClimatiqAPI calls
+var headersList = {
+  'Accept': '*/*',
+  'Authorization': 'Bearer JVWEJDSK4P45TTN9JJPQ09BGZTX9',
+  'Content-Type': 'application/json'
+};
+var bodyContent = {};
+
+
 function setNextQuestion() {
 
   if (currentQuestion < 5) {
@@ -74,7 +84,6 @@ nextBtn.addEventListener("click", (event) => {
   if (event.target.id == 'nextSurveyBtn') {
 
     currentQuestion++;
-
     doAction();
     if (currentQuestion < 5) {
       setNextQuestion();
@@ -184,11 +193,6 @@ function one() {
   console.log("money amount selected (as string)" + money)
   console.log(moneynumberone)
 
-  let headersList = {
-    "Accept": "*/*",
-    "Authorization": "Bearer JVWEJDSK4P45TTN9JJPQ09BGZTX9",
-    "Content-Type": "application/json"
-  }
   let bodyContent = JSON.stringify({
 
     "emission_factor": "consumer_goods-type_clothing",
@@ -233,11 +237,6 @@ function two() {
   var money = moneyinput.value
   var moneynumbertwo = parseInt(money)
 
-  let headersList = {
-    "Accept": "*/*",
-    "Authorization": "Bearer JVWEJDSK4P45TTN9JJPQ09BGZTX9",
-    "Content-Type": "application/json"
-  }
   let bodyContent = JSON.stringify({
 
     "emission_factor": "passenger_vehicle-vehicle_type_automobiles-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na",
@@ -281,14 +280,7 @@ function three() {
   var moneyinput = document.querySelector("#money")
   var money = moneyinput.value
   var moneynumberthree = parseInt(money)
-  
-  
 
-  let headersList = {
-    "Accept": "*/*",
-    "Authorization": "Bearer JVWEJDSK4P45TTN9JJPQ09BGZTX9",
-    "Content-Type": "application/json"
-  }
   let bodyContent = JSON.stringify({
 
     "emission_factor": "electricity-energy_source_electricity",
@@ -334,13 +326,7 @@ function four() {
   var moneyinput = document.querySelector("#money")
   var money = moneyinput.value
   var moneynumberfour = parseInt(money)
-  
 
-  let headersList = {
-    "Accept": "*/*",
-    "Authorization": "Bearer JVWEJDSK4P45TTN9JJPQ09BGZTX9",
-    "Content-Type": "application/json"
-  }
   let bodyContent = JSON.stringify({
 
     "emission_factor": "fuel_type_natural_gas-fuel_use_na",
@@ -377,6 +363,7 @@ function four() {
   getdata()
   calcAverageFour = moneynumberfour
 }
+
 function five() {
   console.log("testing 5")
 
@@ -384,11 +371,6 @@ function five() {
   var money = moneyinput.value
   var moneynumberfive = parseInt(money)
 
-  let headersList = {
-    "Accept": "*/*",
-    "Authorization": "Bearer JVWEJDSK4P45TTN9JJPQ09BGZTX9",
-    "Content-Type": "application/json"
-  }
   let bodyContent = JSON.stringify({
 
     "emission_factor": "freight_vehicle-vehicle_type_na-fuel_source_na-vehicle_weight_na-percentage_load_na",
