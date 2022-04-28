@@ -5,7 +5,6 @@ let nextBtn = document.getElementById("nextSurveyBtn")
 let questionNumber = document.querySelector("#questionLabel");
 let mainQuestion = document.querySelector("#mainQuestion");
 let progressBar = document.querySelector("#progressBar");
-let progressDiv = document.getElementById('progress-div');
 
 const WEATHER_API_URL = 'https://api.openweathermap.org/';
 const WEATHER_API_KEY = '865284dc0e4d44eddd23a2592bd48d0a';
@@ -71,10 +70,15 @@ function showFinishMessage() {
   nextBtn.innerHTML = 'Finish';
 }
 
-nextBtn.addEventListener("click", () => {
-  currentQuestion++;
-  if (currentQuestion < 5) {
-    setNextQuestion();
+nextBtn.addEventListener("click", (event) => {
+  if (event.target.id == 'nextSurveyBtn') {
+
+    currentQuestion++;
+
+    doAction();
+    if (currentQuestion < 5) {
+      setNextQuestion();
+    }
   }
 }
 );
@@ -139,33 +143,30 @@ function getLocationWeather(position) {
 navigator.geolocation.getCurrentPosition(getLocationWeather);
 
 //Functions to fetch the info from ClimatiqAPI
-
-var nextbtn = document.getElementById("nextSurveyBtn")
 var clsbtn = document.getElementById("closeSurveyBtn")
 
-nextbtn.addEventListener("click", doAction)
-var clickState = 0;
+// var clickState = 0;
 
 function doAction() {
-  clickState++;
+  // clickState++;
 
-  if (clickState == 1) {
+  if (currentQuestion == 1) {
     one()
-  } else if (clickState == 2) {
+  } else if (currentQuestion == 2) {
     two()
-  } else if (clickState == 3) {
+  } else if (currentQuestion == 3) {
     three()
-  } else if (clickState == 4) {
+  } else if (currentQuestion == 4) {
     four()
-  } else if (clickState == 5) {
+  } else if (currentQuestion == 5) {
     five()
     // then reset clickState for the next go round
-    clickState = 0;
+    // clickState = 0;
   }
   clsbtn.addEventListener("click", doActionTwo)
   function doActionTwo() {
 
-    if (clickState > 5) {
+    if (currentQuestion > 5) {
       five()
     }
     console.log("test")
