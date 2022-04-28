@@ -6,6 +6,7 @@ var questionNumber = document.querySelector("#questionLabel");
 var mainQuestion = document.querySelector("#mainQuestion");
 var moneyinput = document.querySelector("#money")
 var progressBar = document.querySelector("#progressBar");
+var average = document.getElementById("average");
 
 //vars for questions
 var currentQuestion = 0;
@@ -58,6 +59,18 @@ var parameters = {
   'money_unit': 'mxn'
 };
 var bodyContent;
+var emissionAverage = "";
+var moneyAverage = "";
+var emissionOne  = ""
+var emissionTwo= "";
+var emissionThree= "";
+var emissionFour= "";
+var emissionFive= "";
+var calcAverageOne = "";
+var calcAverageTwo = "";
+var calcAverageThree = "";
+var calcAverageFour = "";
+var calcAverageFive = "";
 
 
 function setNextQuestion() {
@@ -390,51 +403,18 @@ function five() {
   displayAverages()
 }
 
-var calcAverageOne = ""
-var calcAverageTwo = ""
-var calcAverageThree = ""
-var calcAverageFour = ""
-var calcAverageFive = ""
-
-var average = document.getElementById("average")
-
 function calcAverageMoney(){
 
-    const result = (calcAverageOne + calcAverageTwo +
-    calcAverageThree + calcAverageFour + calcAverageFive) /5 
-
-    const resultTest = calcAverageOne + calcAverageTwo +
-    calcAverageThree + calcAverageFour + calcAverageFive
-
-    console.log(resultTest)
-
-    console.log("average money result (in function)" + result)
-
-    moneyAverage = result
+    let result = (calcAverageOne + calcAverageTwo + calcAverageThree + calcAverageFour + calcAverageFive) / 5;
+    console.log("average money result (in function)" + result);
+    moneyAverage = result;
 }
-var moneyAverage = ""
-
-var emissionOne  = ""
-var emissionTwo= ""
-var emissionThree= ""
-var emissionFour= ""
-var emissionFive= ""
 
 function calcAverageEmissions(){
-  const result = (emissionOne + emissionTwo +
-  emissionThree + emissionFour + emissionFive) /5
-
-  const resultTest = emissionOne + emissionTwo +
-  emissionThree + emissionFour + emissionFive
-
-  console.log(resultTest)
-
-  console.log("average emission result (in function)" + result)
-
-    emissionAverage = result
+  let result = (emissionOne + emissionTwo + emissionThree + emissionFour + emissionFive) / 5;
+  console.log("average emission result (in function)" + result);
+  emissionAverage = result;
 }
-
-var emissionAverage = ""
 
 function displayAverages(){
   average.textContent = "your average money spent is " + moneyAverage + "USD. and your average emissions are " + emissionAverage.toFixed(2)
