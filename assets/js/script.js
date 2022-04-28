@@ -4,6 +4,7 @@ var closeBtn = document.getElementById("closeSurveyBtn")
 var nextBtn = document.getElementById("nextSurveyBtn")
 var questionNumber = document.querySelector("#questionLabel");
 var mainQuestion = document.querySelector("#mainQuestion");
+var moneyinput = document.querySelector("#money")
 var progressBar = document.querySelector("#progressBar");
 
 //vars for questions
@@ -189,15 +190,10 @@ function doAction() {
 
 function one() {
   console.log("testing 1")
+  let money = moneyinput.value;
+  let moneyInt = parseInt(money);
 
-  var moneyinput = document.querySelector("#money")
-  var money = moneyinput.value
-  var moneynumberone = parseInt(money)
-
-  console.log("money amount selected (as string)" + money)
-  console.log(moneynumberone)
-
-  parameters.money = moneynumberone;
+  parameters.money = moneyInt;
   bodyContent = JSON.stringify({
     "emission_factor": "consumer_goods-type_clothing",
     parameters
@@ -227,18 +223,17 @@ function one() {
     })
   }
   getdata()
-  calcAverageOne = moneynumberone
+  calcAverageOne = moneyInt
   
 }
 
 function two() {
   console.log("testing 2")
 
-  var moneyinput = document.querySelector("#money")
-  var money = moneyinput.value
-  var moneynumbertwo = parseInt(money)
+  let money = moneyinput.value
+  let moneyInt = parseInt(money)
 
-  parameters.money = moneynumbertwo;
+  parameters.money = moneyInt;
   bodyContent = JSON.stringify({
     "emission_factor": "passenger_vehicle-vehicle_type_automobiles-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na",
     parameters
@@ -268,18 +263,16 @@ function two() {
     })
   }
   getdata()
-  calcAverageTwo = moneynumbertwo
+  calcAverageTwo = moneyInt
 }
 
 
 function three() {
-  console.log("testing 3")
+  console.log("testing 3");
+  let money = moneyinput.value;
+  let moneyInt = parseInt(money);
 
-  var moneyinput = document.querySelector("#money")
-  var money = moneyinput.value
-  var moneynumberthree = parseInt(money)
-
-  parameters.money = moneynumberthree;
+  parameters.money = moneyInt;
   bodyContent = JSON.stringify({
     "emission_factor": "electricity-energy_source_electricity",
     parameters
@@ -311,18 +304,16 @@ function three() {
     })
   }
   getdata()
-  calcAverageThree = moneynumberthree
+  calcAverageThree = moneyInt
 }
 
 
 function four() {
   console.log("testing 4")
+  let money = moneyinput.value;
+  let moneyInt = parseInt(money);
 
-  var moneyinput = document.querySelector("#money")
-  var money = moneyinput.value
-  var moneynumberfour = parseInt(money)
-
-  parameters.money = moneynumberfour;
+  parameters.money = moneyInt;
   bodyContent = JSON.stringify({
     "emission_factor": "fuel_type_natural_gas-fuel_use_na",
     parameters
@@ -353,17 +344,16 @@ function four() {
     })
   }
   getdata()
-  calcAverageFour = moneynumberfour
+  calcAverageFour = moneyInt
 }
 
 function five() {
   console.log("testing 5")
 
-  var moneyinput = document.querySelector("#money")
-  var money = moneyinput.value
-  var moneynumberfive = parseInt(money)
+  let money = moneyinput.value;
+  let moneyInt = parseInt(money);
 
-  parameters.money = moneynumberfive;
+  parameters.money = moneyInt;
   bodyContent = JSON.stringify({
     "emission_factor": "freight_vehicle-vehicle_type_na-fuel_source_na-vehicle_weight_na-percentage_load_na",
     parameters
@@ -394,7 +384,7 @@ function five() {
     })
   }
   getdata()
-  calcAverageFive = moneynumberfive
+  calcAverageFive = moneyInt
   calcAverageMoney()
   calcAverageEmissions()
   displayAverages()
