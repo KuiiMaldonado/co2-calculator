@@ -63,6 +63,10 @@ var bodyContent;
 var emissionAverage = 0;
 var moneyAverage = 0;
 
+//vars for results
+var quizResults = [];
+// var currentResult = {};
+
 
 function setNextQuestion() {
   if (currentQuestion < 5) {
@@ -152,6 +156,10 @@ function getLocationWeather(position) {
 navigator.geolocation.getCurrentPosition(getLocationWeather);
 
 //Save and display results functions
+function saveResults() {
+  localStorage.setItem('results', JSON.stringify(quizResults))
+}
+
 function getLastResults() {
 
   let results = localStorage.getItem('results');
@@ -176,8 +184,6 @@ function doAction() {
     getGasEmissions()
   } else if (currentQuestion == 5) {
     getDeliveryServicesEmissions()
-    // then reset clickState for the next go round
-    // clickState = 0;
   }
 }
 
@@ -196,6 +202,7 @@ function getdata(money) {
     let result = document.getElementById(emissionID);
     let moneySpent = document.getElementById(moneyID);
     let category = '';
+    let currentResult = {};
 
     switch (currentQuestion) {
       case 1: category = 'clothing';
@@ -215,10 +222,17 @@ function getdata(money) {
     emissionAverage = emissionAverage + data.constituent_gases.co2e_total;
     moneyAverage = moneyAverage + money;
 
+    currentResult.question = questions[currentQuestion - 1].number;
+    currentResult.money = moneySpent.textContent;
+    currentResult.emissions = result.textContent;
+
+    quizResults.push(currentResult);
+
     if (currentQuestion == 5) {
       calcAverageMoney();
       calcAverageEmissions();
       displayAverages();
+      saveResults();
     }
 
   }).catch(function (e) {
