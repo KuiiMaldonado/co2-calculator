@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;600&family=Poppins:wght@600&display=swap');
 
 h2 {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 600;
 }
 body {
@@ -17,7 +17,7 @@ body {
 #weather {
   display: flex;
   position: absolute;
-  top: 3vh;
+  top: 2vh;
   right: 0;
   left: 1vh
   width: 500px;

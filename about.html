@@ -13,47 +13,54 @@
 
 <body>
   <header>
-    <nav class="p-5 navbar navbar-expand-lg shadow-md py-2 bg-emerald-700 relative flex items-center w-full justify-between md:flex md:items-center md:justify-between sm:items-center sm:justify-between ">
-      <div class="px-6 w-full flex flex-wrap items-center justify-between">
-        <div class="flex justify-between items-center">
-          
-          <span class="text-3x1 cursor-pointer md:hidden block">
-            <ion-icon class="align-left 30px px-0 h-6 w-6" name="menu" onclick="Menu(this)"></ion-icon>
-          </span>
-          <button
-            class="navbar-toggler border-0 py-3 lg:hidden leading-none text-xl bg-transparent text-gray-600 hover:text-gray-700 focus:text-gray-700 transition-shadow duration-150 ease-in-out mr-2"
-            type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContentY"
-            aria-controls="navbarSupportedContentY" aria-expanded="false" aria-label="Toggle navigation">
-            <svg aria-hidden="true" focusable="false" data-prefix="fas" class="w-5" role="img"
-              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-              
-            </svg>
-          </button>
-        </div>
-        <div class="navbar-collapse collapse grow items-center cursor-pointer" id="navbarSupportedContentY">
-          <ul class="menu navbar-nav mr-auto lg:flex lg:flex-row md:flex md:flex-row md:items-center md:w-auto md:static absolute bg-emerald-700 left-0 md:w-500px md:py-0 py-4 md:pl-0 pl-7 sm:flex-wrap sm:items-center sm:flex-direction:row sm:z-auto sm:static absolute bg-emerald-700 sm:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-600">
+   <!-- Navbar -->
+   <nav class="p-5 navbar navbar-expand-lg shadow-md py-2 bg-emerald-700 relative items-center w-full justify-between md:flex md:items-center md:justify-between sm:flex sm: flex-row sm:items-center sm:justify-between ">
+    <div class="px-6 w-full flex flex-wrap items-center justify-between">
+      <div class="flex justify-between items-center">
+        
+        <span class="text-3x1 cursor-pointer md:hidden block">
+          <ion-icon class="align-left 30px px-0 h-6 w-6" name="menu" onclick="Menu(this)"></ion-icon>
+        </span>
+        <button
+          class="navbar-toggler border-0 py-3 lg:hidden leading-none text-xl bg-transparent text-gray-600 hover:text-gray-700 focus:text-gray-700 transition-shadow duration-150 ease-in-out mr-2"
+          type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContentY"
+          aria-controls="navbarSupportedContentY" aria-expanded="false" aria-label="Toggle navigation">
+          <svg aria-hidden="true" focusable="false" data-prefix="fas" class="w-5" role="img"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            
+          </svg>
+        </button>
+      </div>
+      <div class="navbar-collapse collapse grow items-center cursor-pointer" id="navbarSupportedContentY">
+        <div>
+          <ul class="menu navbar-nav mr-auto lg:flex lg:flex-row md:flex md:flex-row md:items-center md:w-auto md:static absolute bg-emerald-700 left-0 md:w-500px md:py-0 py-4 md:pl-0 pl-7 sm:flex sm:items-center sm:flex-direction:row sm:z-auto sm:static absolute bg-emerald-700 sm:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-600">
             <svg xmlns="http://www.w3.org/2000/svg" class="text-white h-9 w-9" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor" stroke-width="2">
+                 stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round"
-                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <li class="nav-item mx-4 my-6 md:my-0">
               <a class="nav-link block pr-2 lg:px-4 py-2 text-white hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out"
-                href="./index.html" data-mdb-ripple="true" data-mdb-ripple-color="light">Home</a>
-            </li>
-            <li class="nav-item mx-4 my-6 md:my-0">    
-             <a class="nav-link block pr-2 lg:px-4 py-2 text-white hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out"
-            href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Saved</a>
+                 href="./index.html" data-mdb-ripple="true" data-mdb-ripple-color="light">Home</a>
             </li>
             <li class="nav-item mx-4 my-6 md:my-0">
               <a class="nav-link block pr-2 lg:px-4 py-2 text-white hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out"
-                href="./about.html" data-mdb-ripple="true" data-mdb-ripple-color="light">About</a>
+                 href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Saved</a>
+            </li>
+            <li class="nav-item mx-4 my-6 md:my-0">
+              <a class="nav-link block pr-2 lg:px-4 py-2 text-white hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out"
+                 href="./about.html" data-mdb-ripple="true" data-mdb-ripple-color="light">About</a>
             </li>
           </ul>
+          <div id="weather"></div>
+        </div>
+        
+
         </div>
       </div>
-    </nav>
-    <!-- Navbar -->
+    </div>
+  </nav>
+  <!-- Navbar -->
   </header>
 
   <div class="py-12 bg-white text-center">
@@ -61,7 +68,7 @@
       <div class="lg:text-center">
         <h2 class="text-5xl text-emerald-500 leading-8 font-semibold tracking-wide uppercase">CO2 CALC CREATED BY:</h2>
       </div>
-      <p class="mt-6 max-w-2xl text-l text-gray-500 lg:mx-auto">This site was created with JS | HTML | CSS |
+      <p class="mt-6 max-w-2xl text-l text-gray-500 items-center lg:mx-auto">This site was created with JS | HTML | CSS |
         <a class="underline text-gray-500 hover:text-sky-500" href="https://tailwindcss.com/"
           target="_blank">Tailwind</a> |
         <a class="underline text-gray-500 hover:text-sky-500" href="https://www.climatiq.io/" target="_blank">Climatiq
@@ -184,6 +191,13 @@
           </div>
         </div>
       </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
       <p>© 2022 Team 5</p>
     </div>
   </section>
