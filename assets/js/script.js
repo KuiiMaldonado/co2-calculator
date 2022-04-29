@@ -189,6 +189,8 @@ function renderLatestResults(results) {
     moneySPent.textContent = results[i-1].money;
     emission.textContent = results[i-1].emissions;
   }
+  average.textContent = "Your average money spent is " + results[4].totalMoney + "USD. And your average emissions are " +
+                        results[4].totalEmissions.toFixed(2) + ' CO2e/kg';
 }
 
 getLastResults();
@@ -254,6 +256,8 @@ function getdata(money) {
       calcAverageMoney();
       calcAverageEmissions();
       displayAverages();
+      currentResult.totalMoney = moneyAverage;
+      currentResult.totalEmissions = emissionAverage
       saveResults();
       quizResults.pop();
       resultsSection.classList.remove('hide');
