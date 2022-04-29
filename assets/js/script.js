@@ -1,18 +1,15 @@
+var getStartedBtn = document.getElementById("getStartedBtn")
+var surveyModal = document.getElementById("surveyModal")
+var closeBtn = document.getElementById("closeSurveyBtn")
+var nextBtn = document.getElementById("nextSurveyBtn")
+var questionNumber = document.querySelector("#questionLabel");
+var mainQuestion = document.querySelector("#mainQuestion");
+var moneyinput = document.querySelector("#money")
+var progressBar = document.querySelector("#progressBar");
+var average = document.getElementById("average");
 
-let getStartedBtn = document.getElementById("getStartedBtn")
-let surveyModal = document.getElementById("surveyModal")
-let closeBtn = document.getElementById("closeSurveyBtn")
-let nextBtn = document.getElementById("nextSurveyBtn")
-let questionNumber = document.querySelector("#questionLabel");
-let mainQuestion = document.querySelector("#mainQuestion");
-let progressBar = document.querySelector("#progressBar");
-
-const WEATHER_API_URL = 'https://api.openweathermap.org/';
-const WEATHER_API_KEY = '865284dc0e4d44eddd23a2592bd48d0a';
-
-var weather = {};
-let currentQuestion = 0;
-
+//vars for questions
+var currentQuestion = 0;
 const questions = [
   {
     question: "On average, how much do you spend on clothes on a monthly basis?",
@@ -46,23 +43,51 @@ const questions = [
   },
 ];
 
-function setNextQuestion() {
-  showQuestion(questions[currentQuestion]);
+//vars used in the weather API calls
+const WEATHER_API_URL = 'https://api.openweathermap.org/';
+const WEATHER_API_KEY = '865284dc0e4d44eddd23a2592bd48d0a';
+var weather = {};
+
+//var used in the ClimatiqAPI calls
+var headersList = {
+  'Accept': '*/*',
+  'Authorization': 'Bearer JVWEJDSK4P45TTN9JJPQ09BGZTX9',
+  'Content-Type': 'application/json'
 };
+var parameters = {
+  'money': 0,
+  'money_unit': 'mxn'
+};
+var bodyContent;
+var emissionAverage = 0;
+var moneyAverage = 0;
+
+
+function setNextQuestion() {
+
+  if (currentQuestion < 5) {
+    showQuestion(questions[currentQuestion]);
+  }
+}
 // Call the current question array
 function showQuestion(question) {
   // Set the question text in the "main" title
-  mainQuestion.innerHTML = question.question;
+  mainQuestion.textContent = question.question;
   // Set the question number in the "number" title
-  questionNumber.innerHTML = question.number;
+  questionNumber.textContent = question.number;
   // Change progressBar style, which in turn will make it bigger
   progressBar.style = question.style;
-};
+}
 
-nextBtn.addEventListener("click", () => {
-  currentQuestion++;
-  // getData();
-  setNextQuestion();
+nextBtn.addEventListener("click", (event) => {
+  if (event.target.id == 'nextSurveyBtn') {
+
+    currentQuestion++;
+    doAction();
+    if (currentQuestion < 5) {
+      setNextQuestion();
+    }
+  }
 }
 );
 
@@ -89,7 +114,6 @@ function getCityName() {
   fetch(requestURL).then(function (response) {
     return response.json();
   }).then(function (data) {
-    console.log(data);
     let weatherElement = document.getElementById('weather');
 
     weather.city = data[0].name;
@@ -126,341 +150,153 @@ function getLocationWeather(position) {
 //Call to get the location, then the weather for those coordinates;
 navigator.geolocation.getCurrentPosition(getLocationWeather);
 
-
-var nextbtn = document.getElementById("nextSurveyBtn")
-var clsbtn = document.getElementById("closeSurveyBtn")
-
-nextbtn.addEventListener("click", doAction)
-var clickState = 0;
-
+//Functions to fetch the info from ClimatiqAPI
 function doAction() {
-  clickState++;
 
-  if (clickState == 1) {
-    one()
-  } else if (clickState == 2) {
-    two()
-  } else if (clickState == 3) {
-    three()
-  } else if (clickState == 4) {
-    four()
-  } else if (clickState == 5) {
-    five()
+  if (currentQuestion == 1) {
+    getClothingEmissions()
+  } else if (currentQuestion == 2) {
+    getFuelEmissions()
+  } else if (currentQuestion == 3) {
+    getElectricityEmissions()
+  } else if (currentQuestion == 4) {
+    getGasEmissions()
+  } else if (currentQuestion == 5) {
+    getDeliveryServicesEmissions()
     // then reset clickState for the next go round
-    clickState = 0;
+    // clickState = 0;
   }
-  clsbtn.addEventListener("click", doActionTwo)
-  function doActionTwo() {
-
-    if (clickState > 5) {
-      five()
-    }
-    console.log("test")
-  }
-
 }
 
-function one() {
-  console.log("testing 1")
+function getdata(money) {
 
-  var moneyinput = document.querySelector("#money")
-  var money = moneyinput.value
-  var moneynumberone = parseInt(money)
+  fetch("https://beta3.api.climatiq.io/estimate", {
+    method: "POST",
+    body: bodyContent,
+    headers: headersList
+  }).then(function (response) {
+    return response.json();
+  }).then(function (data) {
 
-  console.log("money amount selected (as string)" + money)
-  console.log(moneynumberone)
+    let emissionID = 'result-' + currentQuestion;
+    let moneyID = 'moneyspent-' + currentQuestion;
+    let result = document.getElementById(emissionID);
+    let moneySpent = document.getElementById(moneyID);
+    let category = '';
 
-  let headersList = {
-    "Accept": "*/*",
-    "Authorization": "Bearer JVWEJDSK4P45TTN9JJPQ09BGZTX9",
-    "Content-Type": "application/json"
-  }
-  let bodyContent = JSON.stringify({
+    switch (currentQuestion) {
+      case 1: category = 'clothing';
+        break;
+      case 2: category = 'fuel';
+        break;
+      case 3: category = 'electricity';
+        break;
+      case 4: category = 'gas';
+        break;
+      case 5: category = 'delivery services';
+        break;
+    }
 
+    result.textContent = data.constituent_gases.co2e_total.toFixed(2) + " CO2e/kg"
+    moneySpent.textContent = "You spent " + money + " USD on " + category;
+    emissionAverage = emissionAverage + data.constituent_gases.co2e_total;
+
+  }).catch(function (e) {
+    console.log(e)
+  })
+}
+
+function getClothingEmissions() {
+
+  let money = moneyinput.value;
+  let moneyInt = parseInt(money);
+
+  parameters.money = moneyInt;
+  bodyContent = JSON.stringify({
     "emission_factor": "consumer_goods-type_clothing",
-    "parameters": {
-      "money": moneynumberone,
-      "money_unit": "mxn"
-    }
+    parameters
   });
 
-  function getdata() {
-    console.log("testing 1.1")
-    fetch("https://beta3.api.climatiq.io/estimate", {
-      method: "POST",
-      body: bodyContent,
-      headers: headersList
-    }).then(function (response) {
-      return response.json();
-    }).then(function (data) {
-      console.log(data);
-
-      var resultone = document.getElementById("resultone")
-      resultone.textContent = data.constituent_gases.co2e_total.toFixed(2) + " CO2e/kg"
-
-      var moneyspentone = document.getElementById("moneyspentone")
-      moneyspentone.textContent = "You spent " + money + " USD on clothing"
-
-      emissionOne =  data.constituent_gases.co2e_total
-
-    }).catch(function (e) {
-      console.log(e)
-    })
-  }
-  getdata()
-  calcAverageOne = moneynumberone
-  
+  getdata(money);
+  moneyAverage = moneyAverage + moneyInt;
 }
 
-function two() {
-  console.log("testing 2")
+function getFuelEmissions() {
 
-  var moneyinput = document.querySelector("#money")
-  var money = moneyinput.value
-  var moneynumbertwo = parseInt(money)
+  let money = moneyinput.value
+  let moneyInt = parseInt(money)
 
-  let headersList = {
-    "Accept": "*/*",
-    "Authorization": "Bearer JVWEJDSK4P45TTN9JJPQ09BGZTX9",
-    "Content-Type": "application/json"
-  }
-  let bodyContent = JSON.stringify({
-
+  parameters.money = moneyInt;
+  bodyContent = JSON.stringify({
     "emission_factor": "passenger_vehicle-vehicle_type_automobiles-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na",
-    "parameters": {
-      "money": moneynumbertwo,
-      "money_unit": "mxn"
-    }
+    parameters
   });
 
-  function getdata() {
-    console.log("testing 2.1")
-
-    fetch("https://beta3.api.climatiq.io/estimate", {
-      method: "POST",
-      body: bodyContent,
-      headers: headersList
-    }).then(function (response) {
-      return response.json();
-    }).then(function (data) {
-      console.log(data);
-
-      var resulttwo = document.getElementById("resulttwo")
-      resulttwo.textContent = data.constituent_gases.co2e_total.toFixed(2) + " CO2e/kg"
-
-      var moneyspenttwo = document.getElementById("moneyspenttwo")
-      moneyspenttwo.textContent = "You spent " + money + " USD on fuel"
-
-      emissionTwo =  data.constituent_gases.co2e_total
-    }).catch(function (e) {
-      console.log(e)
-    })
-  }
-  getdata()
-  calcAverageTwo = moneynumbertwo
+  getdata(money);
+  moneyAverage = moneyAverage + moneyInt;
 }
 
+function getElectricityEmissions() {
 
-function three() {
-  console.log("testing 3")
+  let money = moneyinput.value;
+  let moneyInt = parseInt(money);
 
-  var moneyinput = document.querySelector("#money")
-  var money = moneyinput.value
-  var moneynumberthree = parseInt(money)
-  
-  
-
-  let headersList = {
-    "Accept": "*/*",
-    "Authorization": "Bearer JVWEJDSK4P45TTN9JJPQ09BGZTX9",
-    "Content-Type": "application/json"
-  }
-  let bodyContent = JSON.stringify({
-
+  parameters.money = moneyInt;
+  bodyContent = JSON.stringify({
     "emission_factor": "electricity-energy_source_electricity",
-    "parameters": {
-      "money": moneynumberthree,
-      "money_unit": "mxn"
-    }
+    parameters
   });
 
-  function getdata() {
-    console.log("testing 3.1")
-
-    fetch("https://beta3.api.climatiq.io/estimate", {
-      method: "POST",
-      body: bodyContent,
-      headers: headersList
-    }).then(function (response) {
-      return response.json();
-    }).then(function (data) {
-      console.log(data);
-
-      var resultthree = document.getElementById("resultthree")
-      resultthree.textContent = data.constituent_gases.co2e_total.toFixed(2) + " CO2e/kg"
-
-      var moneyspenthree = document.getElementById("moneyspentthree")
-      moneyspentthree.textContent = "You spent " + money + " USD on electricity"
-
-      emissionThree =  data.constituent_gases.co2e_total
-
-    }).catch(function (e) {
-      console.log(e)
-      
-    })
-  }
-  getdata()
-  calcAverageThree = moneynumberthree
+  getdata(money);
+  moneyAverage = moneyAverage + moneyInt;
 }
 
+function getGasEmissions() {
 
-function four() {
-  console.log("testing 4")
+  let money = moneyinput.value;
+  let moneyInt = parseInt(money);
 
-  var moneyinput = document.querySelector("#money")
-  var money = moneyinput.value
-  var moneynumberfour = parseInt(money)
-  
-
-  let headersList = {
-    "Accept": "*/*",
-    "Authorization": "Bearer JVWEJDSK4P45TTN9JJPQ09BGZTX9",
-    "Content-Type": "application/json"
-  }
-  let bodyContent = JSON.stringify({
-
+  parameters.money = moneyInt;
+  bodyContent = JSON.stringify({
     "emission_factor": "fuel_type_natural_gas-fuel_use_na",
-    "parameters": {
-      "money": moneynumberfour,
-      "money_unit": "mxn"
-    }
+    parameters
   });
 
-  function getdata() {
-    console.log("testing 4.1")
-
-    fetch("https://beta3.api.climatiq.io/estimate", {
-      method: "POST",
-      body: bodyContent,
-      headers: headersList
-    }).then(function (response) {
-      return response.json();
-    }).then(function (data) {
-      console.log(data);
-
-      var resultfour = document.getElementById("resultfour")
-      resultfour.textContent = data.constituent_gases.co2e_total.toFixed(2) + " CO2e/kg"
-
-      var moneyspentfour = document.getElementById("moneyspentfour")
-      moneyspentfour.textContent = "You spent " + money + " USD on gas"
-
-      emissionFour =  data.constituent_gases.co2e_total
-
-    }).catch(function (e) {
-      console.log(e)
-    })
-  }
-  getdata()
-  calcAverageFour = moneynumberfour
+  getdata(money);
+  moneyAverage = moneyAverage + moneyInt;
 }
-function five() {
-  console.log("testing 5")
 
-  var moneyinput = document.querySelector("#money")
-  var money = moneyinput.value
-  var moneynumberfive = parseInt(money)
+function getDeliveryServicesEmissions() {
 
-  let headersList = {
-    "Accept": "*/*",
-    "Authorization": "Bearer JVWEJDSK4P45TTN9JJPQ09BGZTX9",
-    "Content-Type": "application/json"
-  }
-  let bodyContent = JSON.stringify({
+  let money = moneyinput.value;
+  let moneyInt = parseInt(money);
 
+  parameters.money = moneyInt;
+  bodyContent = JSON.stringify({
     "emission_factor": "freight_vehicle-vehicle_type_na-fuel_source_na-vehicle_weight_na-percentage_load_na",
-    "parameters": {
-      "money": moneynumberfive,
-      "money_unit": "mxn"
-    }
+    parameters
   });
 
-  function getdata() {
-    console.log("testing 5.1")
-
-    fetch("https://beta3.api.climatiq.io/estimate", {
-      method: "POST",
-      body: bodyContent,
-      headers: headersList
-    }).then(function (response) {
-      return response.json();
-    }).then(function (data) {
-      console.log(data);
-
-      var resultfive = document.getElementById("resultfive")
-      resultfive.textContent = data.constituent_gases.co2e_total.toFixed(2) + " CO2e/kg"
-
-      var moneyspentfive = document.getElementById("moneyspentfive")
-      moneyspentfive.textContent = "You spent " + money + " USD in delivery services"
-
-      emissionFive =  data.constituent_gases.co2e_total
-
-    }).catch(function (e) {
-      console.log(e)
-    })
-  }
-  getdata()
-  calcAverageFive = moneynumberfive
+  getdata(money);
+  moneyAverage = moneyAverage + moneyInt;
   calcAverageMoney()
   calcAverageEmissions()
   displayAverages()
 }
 
-var calcAverageOne = ""
-var calcAverageTwo = ""
-var calcAverageThree = ""
-var calcAverageFour = ""
-var calcAverageFive = ""
-
-var average = document.getElementById("average")
-
 function calcAverageMoney(){
 
-    const result = (calcAverageOne + calcAverageTwo +
-    calcAverageThree + calcAverageFour + calcAverageFive) /5 
-
-    const resultTest = calcAverageOne + calcAverageTwo +
-    calcAverageThree + calcAverageFour + calcAverageFive
-
-    console.log(resultTest)
-
-    console.log("average money result (in function)" + result)
-
-    moneyAverage = result
+    let result = moneyAverage / 5;
+    console.log("average money result (in function)" + result);
+    moneyAverage = result;
 }
-var moneyAverage = ""
-
-var emissionOne  = ""
-var emissionTwo= ""
-var emissionThree= ""
-var emissionFour= ""
-var emissionFive= ""
 
 function calcAverageEmissions(){
-  const result = (emissionOne + emissionTwo +
-  emissionThree + emissionFour + emissionFive) /5
-
-  const resultTest = emissionOne + emissionTwo +
-  emissionThree + emissionFour + emissionFive
-
-  console.log(resultTest)
-
-  console.log("average emission result (in function)" + result)
-
-    emissionAverage = result
+  let result = emissionAverage / 5;
+  console.log("average emission result (in function)" + result);
+  emissionAverage = result;
 }
 
-var emissionAverage = ""
-
 function displayAverages(){
-  average.textContent = "your average money spent is " + moneyAverage + "USD. and your average emissions are " + emissionAverage.toFixed(2)
+  average.textContent = "your average money spent is " + moneyAverage + "USD. and your average emissions are " + emissionAverage.toFixed(2) + ' CO2e/kg';
 }
