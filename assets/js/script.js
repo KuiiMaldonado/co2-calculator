@@ -13,35 +13,35 @@ const WEATHER_API_KEY = '865284dc0e4d44eddd23a2592bd48d0a';
 var weather = {};
 let currentQuestion = 0;
 
+getStartedBtn.onclick = function () {
+  surveyModal.style.display = "flex";
+  setNextQuestion();
+}
+
 const questions = [
   {
     question: "On average, how much do you spend on clothes on a monthly basis?",
     number: "Question 1/5",
-    id: "dataWeWillFetch",
     style: "width: 20%",
   },
   {
     question: "On average, how much do you spend on fuel on a monthly basis?",
     number: "Question 2/5",
-    id: "dataWeWillFetch",
     style: "width: 40%",
   },
   {
     question: "On average, how much do you spend on electricity on a monthly basis?",
     number: "Question 3/5",
-    id: "dataWeWillFetch",
     style: "width: 60%",
   },
   {
     question: "On average, how much do you spend on compressed gas (for gaslit stoves, gaslit water heaters) on a monthly basis?",
     number: "Question 4/5",
-    id: "dataWeWillFetch",
     style: "width: 80%",
   },
   {
     question: "On average, how much do you spend on Amazon or other delivery retailers on a monthly basis?",
     number: "Question 5/5",
-    id: "dataWeWillFetch",
     style: "width: 100%",
   },
 ];
@@ -59,16 +59,39 @@ function showQuestion(question) {
   progressBar.style = question.style;
 };
 
-nextBtn.addEventListener("click", () => {
-  currentQuestion++;
-  // getData();
-  setNextQuestion();
-}
-);
+nextBtn.addEventListener("click", ()=> {
 
-getStartedBtn.onclick = function () {
-  surveyModal.style.display = "flex";
-  setNextQuestion();
+  if (currentQuestion == questions.length - 2) {
+    currentQuestion++; 
+    nextBtn.innerHTML = "Complete";
+    four();
+    setNextQuestion();
+  } else if (currentQuestion +1 == questions.length) {
+    five();
+    currentQuestion = 0;
+    nextBtn.innerHTML = "Next";
+    showResults();
+  } else {
+
+    if (currentQuestion == 0) {
+      one();
+      currentQuestion++;
+      setNextQuestion();
+    } else if (currentQuestion == 1) {
+      two();
+      currentQuestion++;
+      setNextQuestion();
+    } else if (currentQuestion == 2) {
+      three();
+      currentQuestion++;
+      setNextQuestion();
+    }
+  }
+});
+
+function showResults() {
+  surveyModal.style.display = "none";
+  document.getElementById("average").scrollIntoView({behavior: 'smooth'});
 }
 
 closeBtn.onclick = function () {
@@ -114,41 +137,38 @@ function getLocationWeather(position) {
 navigator.geolocation.getCurrentPosition(getLocationWeather);
 
 
-var nextbtn = document.getElementById("nextSurveyBtn")
-var clsbtn = document.getElementById("closeSurveyBtn")
+// var nextbtn = document.getElementById("nextSurveyBtn")
+// var clsbtn = document.getElementById("closeSurveyBtn")
 
-nextbtn.addEventListener("click", doAction)
-var clickState = 0;
+// nextbtn.addEventListener("click", doAction)
+// var clickState = 0;
 
-function doAction() {
-  clickState++;
+// function doAction() {
+//   clickState++;
 
-  if (clickState == 1) {
-    one()
-  } else if (clickState == 2) {
-    two()
-  } else if (clickState == 3) {
-    three()
-  } else if (clickState == 4) {
-    four()
-  } else if (clickState == 5) {
-    five()
-    // then reset clickState for the next go round
-    clickState = 0;
-  }
-  clsbtn.addEventListener("click", doActionTwo)
-  function doActionTwo() {
+//   if (clickState == 1) {
+//     one()
+//   } else if (clickState == 2) {
+//     two()
+//   } else if (clickState == 3) {
+//     three()
+//   } else if (clickState == 4) {
+//     four()
+//   } else if (clickState == 5) {
+//     five()
+//     // then reset clickState for the next go round
+//     clickState = 0;
+//   }
+//   clsbtn.addEventListener("click", doActionTwo)
+//   function doActionTwo() {
 
-    if (clickState > 5) {
-      five()
-    }
-    console.log("test")
-  }
+//     if (clickState > 5) {
+//       five()
+//     }
+//     console.log("test")
+//   }
 
-}
-
-
-
+// }
 
 
 function one() {
@@ -256,7 +276,6 @@ function two() {
   calcAverageTwo = moneynumbertwo
 }
 
-
 function three() {
   console.log("testing 3")
 
@@ -309,7 +328,6 @@ function three() {
   calcAverageThree = moneynumberthree
 }
 
-
 function four() {
   console.log("testing 4")
 
@@ -359,6 +377,7 @@ function four() {
   getdata()
   calcAverageFour = moneynumberfour
 }
+
 function five() {
   console.log("testing 5")
 
@@ -470,5 +489,5 @@ function calcAverageEmissions(){
 var emissionAverage = ""
 
 function displayAverages(){
-  average.textContent = "your average money spent is " + moneyAverage + "USD. and your average emissions are " + emissionAverage.toFixed(2)
+  average.textContent = "Your average money spent is " + moneyAverage + "USD. And your average emissions are " + emissionAverage.toFixed(2)
 }
