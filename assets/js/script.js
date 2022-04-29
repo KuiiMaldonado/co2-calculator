@@ -7,6 +7,7 @@ var mainQuestion = document.querySelector("#mainQuestion");
 var moneyinput = document.querySelector("#money")
 var progressBar = document.querySelector("#progressBar");
 var average = document.getElementById("average");
+var resultsSection = document.getElementById('results-section');
 
 //vars for questions
 var currentQuestion = 0;
@@ -114,7 +115,6 @@ function getCityName() {
   fetch(requestURL).then(function (response) {
     return response.json();
   }).then(function (data) {
-    console.log(data);
     let weatherElement = document.getElementById('weather');
 
     weather.city = data[0].name;
@@ -150,6 +150,18 @@ function getLocationWeather(position) {
 
 //Call to get the location, then the weather for those coordinates;
 navigator.geolocation.getCurrentPosition(getLocationWeather);
+
+//Save and display results functions
+function getLastResults() {
+
+  let results = localStorage.getItem('results');
+
+  if (results == null) {
+    resultsSection.classList.add('hide');
+  }
+}
+
+getLastResults();
 
 //Functions to fetch the info from ClimatiqAPI
 function doAction() {
@@ -286,15 +298,12 @@ function getDeliveryServicesEmissions() {
 }
 
 function calcAverageMoney(){
-
     let result = moneyAverage / 5;
-    console.log("average money result (in function)" + result);
     moneyAverage = result;
 }
 
 function calcAverageEmissions(){
   let result = emissionAverage / 5;
-  console.log("average emission result (in function)" + result);
   emissionAverage = result;
 }
 
