@@ -163,15 +163,15 @@ navigator.geolocation.getCurrentPosition(getLocationWeather);
 function doAction() {
 
   if (currentQuestion == 1) {
-    one()
+    getClothingEmissions()
   } else if (currentQuestion == 2) {
-    two()
+    getFuelEmissions()
   } else if (currentQuestion == 3) {
-    three()
+    getElectricityEmissions()
   } else if (currentQuestion == 4) {
-    four()
+    getGasEmissions()
   } else if (currentQuestion == 5) {
-    five()
+    getDeliveryServicesEmissions()
     // then reset clickState for the next go round
     // clickState = 0;
   }
@@ -215,7 +215,7 @@ function getdata(money) {
   })
 }
 
-function one() {
+function getClothingEmissions() {
 
   let money = moneyinput.value;
   let moneyInt = parseInt(money);
@@ -230,8 +230,7 @@ function one() {
   moneyAverage = moneyAverage + moneyInt;
 }
 
-function two() {
-  console.log("testing 2")
+function getFuelEmissions() {
 
   let money = moneyinput.value
   let moneyInt = parseInt(money)
@@ -246,8 +245,8 @@ function two() {
   moneyAverage = moneyAverage + moneyInt;
 }
 
-function three() {
-  console.log("testing 3");
+function getElectricityEmissions() {
+
   let money = moneyinput.value;
   let moneyInt = parseInt(money);
 
@@ -261,8 +260,8 @@ function three() {
   moneyAverage = moneyAverage + moneyInt;
 }
 
-function four() {
-  console.log("testing 4")
+function getGasEmissions() {
+
   let money = moneyinput.value;
   let moneyInt = parseInt(money);
 
@@ -276,8 +275,7 @@ function four() {
   moneyAverage = moneyAverage + moneyInt;
 }
 
-function five() {
-  console.log("testing 5")
+function getDeliveryServicesEmissions() {
 
   let money = moneyinput.value;
   let moneyInt = parseInt(money);
