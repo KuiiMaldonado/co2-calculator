@@ -1,5 +1,6 @@
 var getStartedBtn = document.getElementById("getStartedBtn")
 var surveyModal = document.getElementById("surveyModal")
+var dataModal = document.getElementById("dataModal")
 var closeBtn = document.getElementById("closeSurveyBtn")
 var nextBtn = document.getElementById("nextSurveyBtn")
 var questionNumber = document.querySelector("#questionLabel");
@@ -10,36 +11,31 @@ var average = document.getElementById("average");
 var resultsSection = document.getElementById('results-section');
 
 //vars for questions
-var currentQuestion = 0;
+var currentQuestion;
 const questions = [
   {
     question: "On average, how much do you spend on clothes on a monthly basis?",
     number: "Question 1/5",
-    id: "dataWeWillFetch",
     style: "width: 20%",
   },
   {
     question: "On average, how much do you spend on fuel on a monthly basis?",
     number: "Question 2/5",
-    id: "dataWeWillFetch",
     style: "width: 40%",
   },
   {
     question: "On average, how much do you spend on electricity on a monthly basis?",
     number: "Question 3/5",
-    id: "dataWeWillFetch",
     style: "width: 60%",
   },
   {
     question: "On average, how much do you spend on compressed gas (for gaslit stoves, gaslit water heaters) on a monthly basis?",
     number: "Question 4/5",
-    id: "dataWeWillFetch",
     style: "width: 80%",
   },
   {
     question: "On average, how much do you spend on Amazon or other delivery retailers on a monthly basis?",
     number: "Question 5/5",
-    id: "dataWeWillFetch",
     style: "width: 100%",
   },
 ];
@@ -84,25 +80,41 @@ function showQuestion(question) {
   progressBar.style = question.style;
 }
 
-nextBtn.addEventListener("click", (event) => {
-  if (event.target.id == 'nextSurveyBtn') {
+getStartedBtn.onclick = ()=> {
+  currentQuestion = 0;
+  surveyModal.style.display = "flex";
+  dataModal.classList.remove("hidden");
+  setNextQuestion();
+};
 
-    currentQuestion++;
-    doAction();
-    if (currentQuestion < 5) {
-      setNextQuestion();
-    }
+nextBtn.addEventListener("click", (event)=> {
+  if (event.target.id == 'nextSurveyBtn'){
+
+  currentQuestion++;
+  doAction();
+  if (currentQuestion < 5) {
+    setNextQuestion();
+  } else {
+    showResults();
+  }
+  if (currentQuestion == questions.length - 1) {
+    nextBtn.innerHTML = "Complete";
   }
 }
-);
+});
 
-getStartedBtn.onclick = function () {
-  surveyModal.style.display = "flex";
-  setNextQuestion();
+function showResults() {
+  nextBtn.innerHTML = "Next";
+  surveyModal.style.display = "none";
+  document.getElementById("average").scrollIntoView({behavior: 'smooth'});
 }
 
 closeBtn.onclick = function () {
   surveyModal.style.display = "none";
+}
+
+lastBtn.onclick = function () {
+  dataModal.classList.add("hidden");
 }
 
 window.onclick = function (event) {
@@ -341,5 +353,5 @@ function calcAverageEmissions(){
 }
 
 function displayAverages(){
-  average.textContent = "your average money spent is " + moneyAverage + "USD. and your average emissions are " + emissionAverage.toFixed(2) + ' CO2e/kg';
+  average.textContent = "Your average money spent is " + moneyAverage + "USD. And your average emissions are " + emissionAverage.toFixed(2) + ' CO2e/kg';
 }
