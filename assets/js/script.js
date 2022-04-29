@@ -167,6 +167,25 @@ function getLastResults() {
   if (results == null) {
     resultsSection.classList.add('hide');
   }
+  else {
+    renderResults();
+  }
+}
+
+function renderResults() {
+
+  let results = JSON.parse(localStorage.getItem('results'));
+  console.log(results);
+
+  for (let i = 1; i < 6; i++) {
+    let header = document.getElementById('question-' + i);
+    let moneySPent = document.getElementById('moneyspent-' + i);
+    let emission = document.getElementById('result-' + i);
+
+    header.textContent = results[i-1].question;
+    moneySPent.textContent = results[i-1].money;
+    emission.textContent = results[i-1].emissions;
+  }
 }
 
 getLastResults();
@@ -233,6 +252,7 @@ function getdata(money) {
       calcAverageEmissions();
       displayAverages();
       saveResults();
+      resultsSection.classList.remove('hide');
     }
 
   }).catch(function (e) {
