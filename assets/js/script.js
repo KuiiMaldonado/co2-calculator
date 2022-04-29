@@ -10,7 +10,7 @@ var progressBar = document.querySelector("#progressBar");
 var average = document.getElementById("average");
 
 //vars for questions
-var currentQuestion = 0;
+var currentQuestion;
 const questions = [
   {
     question: "On average, how much do you spend on clothes on a monthly basis?",
@@ -76,6 +76,7 @@ function showQuestion(question) {
 }
 
 getStartedBtn.onclick = ()=> {
+  currentQuestion = 0;
   surveyModal.style.display = "flex";
   dataModal.classList.remove("hidden");
   setNextQuestion();
@@ -99,7 +100,6 @@ nextBtn.addEventListener("click", (event)=> {
 
 function showResults() {
   nextBtn.innerHTML = "Next";
-  currentQuestion = 0;
   surveyModal.style.display = "none";
   document.getElementById("average").scrollIntoView({behavior: 'smooth'});
 }
@@ -165,15 +165,15 @@ navigator.geolocation.getCurrentPosition(getLocationWeather);
 //Functions to fetch the info from ClimatiqAPI
 function doAction() {
 
-  if (currentQuestion == 0) {
+  if (currentQuestion == 1) {
     getClothingEmissions()
-  } else if (currentQuestion == 1) {
-    getFuelEmissions()
   } else if (currentQuestion == 2) {
-    getElectricityEmissions()
+    getFuelEmissions()
   } else if (currentQuestion == 3) {
-    getGasEmissions()
+    getElectricityEmissions()
   } else if (currentQuestion == 4) {
+    getGasEmissions()
+  } else if (currentQuestion == 5) {
     getDeliveryServicesEmissions()
     // then reset clickState for the next go round
     // clickState = 0;
@@ -299,13 +299,11 @@ function getDeliveryServicesEmissions() {
 function calcAverageMoney(){
 
     let result = moneyAverage / 5;
-    console.log("average money result (in function)" + result);
     moneyAverage = result;
 }
 
 function calcAverageEmissions(){
   let result = emissionAverage / 5;
-  console.log("average emission result (in function)" + result);
   emissionAverage = result;
 }
 
