@@ -83,7 +83,6 @@ function showQuestion(question) {
 getStartedBtn.onclick = ()=> {
   currentQuestion = 0;
   surveyModal.style.display = "flex";
-  dataModal.classList.remove("hidden");
   setNextQuestion();
 };
 
@@ -111,10 +110,6 @@ function showResults() {
 
 closeBtn.onclick = function () {
   surveyModal.style.display = "none";
-}
-
-lastBtn.onclick = function () {
-  dataModal.classList.add("hidden");
 }
 
 window.onclick = function (event) {
