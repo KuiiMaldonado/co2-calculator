@@ -68,9 +68,6 @@ function setNextQuestion() {
   if (currentQuestion < 5) {
     showQuestion(questions[currentQuestion]);
   }
-  else {
-    showFinishMessage()
-  }
 }
 // Call the current question array
 function showQuestion(question) {
@@ -80,12 +77,6 @@ function showQuestion(question) {
   questionNumber.textContent = question.number;
   // Change progressBar style, which in turn will make it bigger
   progressBar.style = question.style;
-}
-
-function showFinishMessage() {
-  questionNumber.textContent = 'All set!';
-  mainQuestion.textContent = 'Click the finish button to check your results';
-  nextBtn.innerHTML = 'Finish';
 }
 
 nextBtn.addEventListener("click", (event) => {
