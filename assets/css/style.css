@@ -11,7 +11,9 @@
 #weather h1{
   color: white;
   font-size: 1.2rem;
+  margin: 10px;
 }
+
 
 .results-container {
   width: 400px;
