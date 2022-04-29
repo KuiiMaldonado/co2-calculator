@@ -160,12 +160,7 @@ function getLocationWeather(position) {
 navigator.geolocation.getCurrentPosition(getLocationWeather);
 
 //Functions to fetch the info from ClimatiqAPI
-var clsbtn = document.getElementById("closeSurveyBtn")
-
-// var clickState = 0;
-
 function doAction() {
-  // clickState++;
 
   if (currentQuestion == 1) {
     one()
@@ -180,15 +175,6 @@ function doAction() {
     // then reset clickState for the next go round
     // clickState = 0;
   }
-  clsbtn.addEventListener("click", doActionTwo)
-  function doActionTwo() {
-
-    if (currentQuestion > 5) {
-      five()
-    }
-    console.log("test")
-  }
-
 }
 
 function getdata(money) {
