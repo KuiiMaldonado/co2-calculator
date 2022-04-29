@@ -79,30 +79,25 @@ getStartedBtn.onclick = ()=> {
   setNextQuestion();
 };
 
-nextBtn.addEventListener("click", ()=> {
+nextBtn.addEventListener("click", (event)=> {
+  if (event.target.id == 'nextSurveyBtn'){
 
-  if (currentQuestion == questions.length - 2) {
-    nextBtn.innerHTML = "Complete";
-  } else if (currentQuestion +1 == questions.length) {
-    currentQuestion = 0;
-    nextBtn.innerHTML = "Next";
+  currentQuestion++;
+  doAction();
+  if (currentQuestion < 5) {
+    setNextQuestion();
+  } else {
     showResults();
-  } 
-});
-
-nextBtn.addEventListener("click", (event) => {
-  if (event.target.id == 'nextSurveyBtn') {
-
-    currentQuestion++;
-    doAction();
-    if (currentQuestion < 5) {
-      setNextQuestion();
-    }
+  }
+  if (currentQuestion == questions.length - 1) {
+    nextBtn.innerHTML = "Complete";
   }
 }
-);
+});
 
 function showResults() {
+  nextBtn.innerHTML = "Next";
+  currentQuestion = 0;
   surveyModal.style.display = "none";
   document.getElementById("average").scrollIntoView({behavior: 'smooth'});
 }
@@ -164,15 +159,15 @@ navigator.geolocation.getCurrentPosition(getLocationWeather);
 //Functions to fetch the info from ClimatiqAPI
 function doAction() {
 
-  if (currentQuestion == 1) {
+  if (currentQuestion == 0) {
     getClothingEmissions()
-  } else if (currentQuestion == 2) {
+  } else if (currentQuestion == 1) {
     getFuelEmissions()
-  } else if (currentQuestion == 3) {
+  } else if (currentQuestion == 2) {
     getElectricityEmissions()
-  } else if (currentQuestion == 4) {
+  } else if (currentQuestion == 3) {
     getGasEmissions()
-  } else if (currentQuestion == 5) {
+  } else if (currentQuestion == 4) {
     getDeliveryServicesEmissions()
     // then reset clickState for the next go round
     // clickState = 0;
@@ -309,5 +304,5 @@ function calcAverageEmissions(){
 }
 
 function displayAverages(){
-  average.textContent = "your average money spent is " + moneyAverage + "USD. and your average emissions are " + emissionAverage.toFixed(2) + ' CO2e/kg';
+  average.textContent = "Your average money spent is " + moneyAverage + "USD. And your average emissions are " + emissionAverage.toFixed(2) + ' CO2e/kg';
 }
