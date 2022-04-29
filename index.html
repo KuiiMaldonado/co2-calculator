@@ -34,25 +34,30 @@
           </button>
         </div>
         <div class="navbar-collapse collapse grow items-center cursor-pointer" id="navbarSupportedContentY">
-          <ul class="menu navbar-nav mr-auto lg:flex lg:flex-row md:flex md:flex-row md:items-center md:w-auto md:static absolute bg-emerald-700 left-0 md:w-500px md:py-0 py-4 md:pl-0 pl-7 sm:flex-wrap sm:items-center sm:flex-direction:row sm:z-auto sm:static absolute bg-emerald-700 sm:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-600">
-            <svg xmlns="http://www.w3.org/2000/svg" class="text-white h-9 w-9" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <li class="nav-item mx-4 my-6 md:my-0">
-              <a class="nav-link block pr-2 lg:px-4 py-2 text-white hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out"
-                href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Home</a>
-            </li>
-            <li class="nav-item mx-4 my-6 md:my-0">    
-             <a class="nav-link block pr-2 lg:px-4 py-2 text-white hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out"
-            href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Saved</a>
-            </li>
-            <li class="nav-item mx-4 my-6 md:my-0">
-              <a class="nav-link block pr-2 lg:px-4 py-2 text-white hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out"
-                href="./about.html" data-mdb-ripple="true" data-mdb-ripple-color="light">About</a>
-            </li>
-          </ul>
+          <div>
+            <ul class="menu navbar-nav mr-auto lg:flex lg:flex-row md:flex md:flex-row md:items-center md:w-auto md:static absolute bg-emerald-700 left-0 md:w-500px md:py-0 py-4 md:pl-0 pl-7 sm:flex-wrap sm:items-center sm:flex-direction:row sm:z-auto sm:static absolute bg-emerald-700 sm:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="text-white h-9 w-9" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <li class="nav-item mx-4 my-6 md:my-0">
+                <a class="nav-link block pr-2 lg:px-4 py-2 text-white hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out"
+                   href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Home</a>
+              </li>
+              <li class="nav-item mx-4 my-6 md:my-0">
+                <a class="nav-link block pr-2 lg:px-4 py-2 text-white hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out"
+                   href="#!" data-mdb-ripple="true" data-mdb-ripple-color="light">Saved</a>
+              </li>
+              <li class="nav-item mx-4 my-6 md:my-0">
+                <a class="nav-link block pr-2 lg:px-4 py-2 text-white hover:text-gray-700 focus:text-gray-700 transition duration-150 ease-in-out"
+                   href="./about.html" data-mdb-ripple="true" data-mdb-ripple-color="light">About</a>
+              </li>
+            </ul>
+          </div>
+          <div id="weather">
+
+          </div>
         </div>
       </div>
     </nav>
@@ -156,12 +161,10 @@
     <div class="modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
       <div
         class="modal-header flex flex-shrink-0 items-center justify-center p-4 border-b border-gray-200 rounded-t-md">
-        <h5 class="text-xl font-medium leading-normal text-cyan-900 text-center" id="questionLabel">
-          Question 1/5
-        </h5>
+        <h5 class="text-xl font-medium leading-normal text-cyan-900 text-center" id="questionLabel"></h5>
       </div>
       <div class="modal-body relative p-4 text-center">
-        <p id="mainQuestion">How much do you spend?</p>
+        <p id="mainQuestion"></p>
       </div>
       <div class="flex justify-center items-center">
         <div class="mb-2">
@@ -173,7 +176,7 @@
         </div>
       </div>
       <br>
-      <div class="flex justify-center mb-1 text-base font-medium text-slate-700">Progress</div>
+      <div class="flex justify-center mb-1 text-base font-medium text-slate-700" id="progress-div">Progress</div>
       <div class="progress-bar-container flex justify-center">
         <div class="mb-1 w-1/2 bg-gray-200 rounded-full h-2.5 relative">
           <div id="progressBar" class="transition-all ease-out duration-1000 bg-green-600 h-2.5 rounded-full"
@@ -209,38 +212,38 @@
         </div>
         <div class="p-7">
           <h5 class="text-purple-500 text-l font-medium mb-2">Question 1</h5>
-          <p id="moneyspentone" class="text-gray-700 text-base mb-4">
+          <p id="moneyspent-1" class="text-gray-700 text-base mb-4">
             You spent 100 USD in clothing
           </p>
-          <p id="resultone" class="text-gray-700 text-base mb-4 font-bold">
+          <p id="result-1" class="text-gray-700 text-base mb-4 font-bold">
             33 CO2e/kg
           </p>
           <h5 class="text-purple-500 text-l font-medium mb-2">Question 2</h5>
-          <p id="moneyspenttwo" class="text-gray-700 text-base mb-4">
+          <p id="moneyspent-2" class="text-gray-700 text-base mb-4">
             You spent 200 USD in food
           </p>
-          <p id="resulttwo" class="text-gray-700 text-base mb-4 font-bold">
+          <p id="result-2" class="text-gray-700 text-base mb-4 font-bold">
             33 CO2e/kg
           </p>
           <h5 class="text-purple-500 text-l font-medium mb-2">Question 3</h5>
-          <p id="moneyspentthree" class="text-gray-700 text-base mb-4">
+          <p id="moneyspent-3" class="text-gray-700 text-base mb-4">
             You spent 384 USD in travel
           </p>
-          <p id="resultthree" class="text-gray-700 text-base mb-4 font-bold">
+          <p id="result-3" class="text-gray-700 text-base mb-4 font-bold">
             33 CO2e/kg
           </p>
           <h5 class="text-purple-500 text-l font-medium mb-2">Question 4</h5>
-          <p id="moneyspentfour" class="text-gray-700 text-base mb-4">
+          <p id="moneyspent-4" class="text-gray-700 text-base mb-4">
             You spent 40 USD in electricity
           </p>
-          <p id="resultfour" class="text-gray-700 text-base mb-4 font-bold">
+          <p id="result-4" class="text-gray-700 text-base mb-4 font-bold">
             33 CO2e/kg
           </p>
           <h5 class="text-purple-500 text-l font-medium mb-2">Question 5</h5>
-          <p id="moneyspentfive" class="text-gray-700 text-base mb-4">
+          <p id="moneyspent-5" class="text-gray-700 text-base mb-4">
             You spent 33 USD in fuel
           </p>
-          <p id="resultfive" class="text-gray-700 text-base mb-4 font-bold">
+          <p id="result-5" class="text-gray-700 text-base mb-4 font-bold">
             33 CO2e/kg
           </p>
         </div>
