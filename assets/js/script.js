@@ -213,6 +213,13 @@ function getdata(money) {
     result.textContent = data.constituent_gases.co2e_total.toFixed(2) + " CO2e/kg"
     moneySpent.textContent = "You spent " + money + " USD on " + category;
     emissionAverage = emissionAverage + data.constituent_gases.co2e_total;
+    moneyAverage = moneyAverage + money;
+
+    if (currentQuestion == 5) {
+      calcAverageMoney();
+      calcAverageEmissions();
+      displayAverages();
+    }
 
   }).catch(function (e) {
     console.log(e)
@@ -222,79 +229,71 @@ function getdata(money) {
 function getClothingEmissions() {
 
   let money = moneyinput.value;
-  let moneyInt = parseInt(money);
+  money = parseInt(money);
 
-  parameters.money = moneyInt;
+  parameters.money = money;
   bodyContent = JSON.stringify({
     "emission_factor": "consumer_goods-type_clothing",
     parameters
   });
 
   getdata(money);
-  moneyAverage = moneyAverage + moneyInt;
 }
 
 function getFuelEmissions() {
 
   let money = moneyinput.value
-  let moneyInt = parseInt(money)
+  money = parseInt(money);
 
-  parameters.money = moneyInt;
+  parameters.money = money;
   bodyContent = JSON.stringify({
     "emission_factor": "passenger_vehicle-vehicle_type_automobiles-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na",
     parameters
   });
 
   getdata(money);
-  moneyAverage = moneyAverage + moneyInt;
 }
 
 function getElectricityEmissions() {
 
   let money = moneyinput.value;
-  let moneyInt = parseInt(money);
+  money = parseInt(money);
 
-  parameters.money = moneyInt;
+  parameters.money = money;
   bodyContent = JSON.stringify({
     "emission_factor": "electricity-energy_source_electricity",
     parameters
   });
 
   getdata(money);
-  moneyAverage = moneyAverage + moneyInt;
 }
 
 function getGasEmissions() {
 
   let money = moneyinput.value;
-  let moneyInt = parseInt(money);
+  money = parseInt(money);
 
-  parameters.money = moneyInt;
+  parameters.money = money;
   bodyContent = JSON.stringify({
     "emission_factor": "fuel_type_natural_gas-fuel_use_na",
     parameters
   });
 
   getdata(money);
-  moneyAverage = moneyAverage + moneyInt;
 }
 
 function getDeliveryServicesEmissions() {
 
   let money = moneyinput.value;
-  let moneyInt = parseInt(money);
+  money = parseInt(money);
 
-  parameters.money = moneyInt;
+  parameters.money = money;
   bodyContent = JSON.stringify({
     "emission_factor": "freight_vehicle-vehicle_type_na-fuel_source_na-vehicle_weight_na-percentage_load_na",
     parameters
   });
 
   getdata(money);
-  moneyAverage = moneyAverage + moneyInt;
-  calcAverageMoney()
-  calcAverageEmissions()
-  displayAverages()
 }
 
 function calcAverageMoney(){
