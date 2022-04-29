@@ -59,9 +59,8 @@ var bodyContent;
 var emissionAverage = 0;
 var moneyAverage = 0;
 
-//vars for results
+//var used to save results
 var quizResults = [];
-// var currentResult = {};
 
 
 function setNextQuestion() {
@@ -164,25 +163,22 @@ navigator.geolocation.getCurrentPosition(getLocationWeather);
 
 //Save and display results functions
 function saveResults() {
-  localStorage.setItem('results', JSON.stringify(quizResults))
+    localStorage.setItem('results', JSON.stringify(quizResults));
 }
 
 function getLastResults() {
 
-  let results = localStorage.getItem('results');
+  let results = JSON.parse(localStorage.getItem('results'));
 
   if (results == null) {
     resultsSection.classList.add('hide');
   }
   else {
-    renderResults();
+    renderLatestResults(results);
   }
 }
 
-function renderResults() {
-
-  let results = JSON.parse(localStorage.getItem('results'));
-  console.log(results);
+function renderLatestResults(results) {
 
   for (let i = 1; i < 6; i++) {
     let header = document.getElementById('question-' + i);
@@ -259,6 +255,7 @@ function getdata(money) {
       calcAverageEmissions();
       displayAverages();
       saveResults();
+      quizResults.pop();
       resultsSection.classList.remove('hide');
     }
 
