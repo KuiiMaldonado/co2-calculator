@@ -8,6 +8,7 @@ var mainQuestion = document.querySelector("#mainQuestion");
 var moneyinput = document.querySelector("#money")
 var progressBar = document.querySelector("#progressBar");
 var average = document.getElementById("average");
+var resultsSection = document.getElementById('results-section');
 
 //vars for questions
 var currentQuestion;
@@ -58,19 +59,22 @@ var bodyContent;
 var emissionAverage = 0;
 var moneyAverage = 0;
 
+//var used to save results
+var quizResults = [];
+
 
 function setNextQuestion() {
-
   if (currentQuestion < 5) {
     showQuestion(questions[currentQuestion]);
   }
 }
+
 // Call the current question array
 function showQuestion(question) {
   // Set the question text in the "main" title
-  mainQuestion.textContent = question.question;
+  mainQuestion.innerHTML = question.question;
   // Set the question number in the "number" title
-  questionNumber.textContent = question.number;
+  questionNumber.innerHTML = question.number;
   // Change progressBar style, which in turn will make it bigger
   progressBar.style = question.style;
 }
@@ -78,7 +82,6 @@ function showQuestion(question) {
 getStartedBtn.onclick = ()=> {
   currentQuestion = 0;
   surveyModal.style.display = "flex";
-  dataModal.classList.remove("hidden");
   setNextQuestion();
 };
 
@@ -106,10 +109,6 @@ function showResults() {
 
 closeBtn.onclick = function () {
   surveyModal.style.display = "none";
-}
-
-lastBtn.onclick = function () {
-  dataModal.classList.add("hidden");
 }
 
 window.onclick = function (event) {
@@ -162,6 +161,40 @@ function getLocationWeather(position) {
 //Call to get the location, then the weather for those coordinates;
 navigator.geolocation.getCurrentPosition(getLocationWeather);
 
+//Save and display results functions
+function saveResults() {
+    localStorage.setItem('results', JSON.stringify(quizResults));
+}
+
+function getLastResults() {
+
+  let results = JSON.parse(localStorage.getItem('results'));
+
+  if (results == null) {
+    resultsSection.classList.add('hide');
+  }
+  else {
+    renderLatestResults(results);
+  }
+}
+
+function renderLatestResults(results) {
+
+  for (let i = 1; i < 6; i++) {
+    let header = document.getElementById('question-' + i);
+    let moneySPent = document.getElementById('moneyspent-' + i);
+    let emission = document.getElementById('result-' + i);
+
+    header.textContent = results[i-1].question;
+    moneySPent.textContent = results[i-1].money;
+    emission.textContent = results[i-1].emissions;
+  }
+  average.textContent = "Your average money spent is " + results[4].totalMoney + "USD. And your average emissions are " +
+                        results[4].totalEmissions.toFixed(2) + ' CO2e/kg';
+}
+
+getLastResults();
+
 //Functions to fetch the info from ClimatiqAPI
 function doAction() {
 
@@ -175,8 +208,6 @@ function doAction() {
     getGasEmissions()
   } else if (currentQuestion == 5) {
     getDeliveryServicesEmissions()
-    // then reset clickState for the next go round
-    // clickState = 0;
   }
 }
 
@@ -195,6 +226,7 @@ function getdata(money) {
     let result = document.getElementById(emissionID);
     let moneySpent = document.getElementById(moneyID);
     let category = '';
+    let currentResult = {};
 
     switch (currentQuestion) {
       case 1: category = 'clothing';
@@ -212,6 +244,24 @@ function getdata(money) {
     result.textContent = data.constituent_gases.co2e_total.toFixed(2) + " CO2e/kg"
     moneySpent.textContent = "You spent " + money + " USD on " + category;
     emissionAverage = emissionAverage + data.constituent_gases.co2e_total;
+    moneyAverage = moneyAverage + money;
+
+    currentResult.question = questions[currentQuestion - 1].number;
+    currentResult.money = moneySpent.textContent;
+    currentResult.emissions = result.textContent;
+
+    quizResults.push(currentResult);
+
+    if (currentQuestion == 5) {
+      calcAverageMoney();
+      calcAverageEmissions();
+      displayAverages();
+      currentResult.totalMoney = moneyAverage;
+      currentResult.totalEmissions = emissionAverage
+      saveResults();
+      quizResults.pop();
+      resultsSection.classList.remove('hide');
+    }
 
   }).catch(function (e) {
     console.log(e)
@@ -221,83 +271,74 @@ function getdata(money) {
 function getClothingEmissions() {
 
   let money = moneyinput.value;
-  let moneyInt = parseInt(money);
+  money = parseInt(money);
 
-  parameters.money = moneyInt;
+  parameters.money = money;
   bodyContent = JSON.stringify({
     "emission_factor": "consumer_goods-type_clothing",
     parameters
   });
 
   getdata(money);
-  moneyAverage = moneyAverage + moneyInt;
 }
 
 function getFuelEmissions() {
 
   let money = moneyinput.value
-  let moneyInt = parseInt(money)
+  money = parseInt(money);
 
-  parameters.money = moneyInt;
+  parameters.money = money;
   bodyContent = JSON.stringify({
     "emission_factor": "passenger_vehicle-vehicle_type_automobiles-fuel_source_na-engine_size_na-vehicle_age_na-vehicle_weight_na",
     parameters
   });
 
   getdata(money);
-  moneyAverage = moneyAverage + moneyInt;
 }
 
 function getElectricityEmissions() {
 
   let money = moneyinput.value;
-  let moneyInt = parseInt(money);
+  money = parseInt(money);
 
-  parameters.money = moneyInt;
+  parameters.money = money;
   bodyContent = JSON.stringify({
     "emission_factor": "electricity-energy_source_electricity",
     parameters
   });
 
   getdata(money);
-  moneyAverage = moneyAverage + moneyInt;
 }
 
 function getGasEmissions() {
 
   let money = moneyinput.value;
-  let moneyInt = parseInt(money);
+  money = parseInt(money);
 
-  parameters.money = moneyInt;
+  parameters.money = money;
   bodyContent = JSON.stringify({
     "emission_factor": "fuel_type_natural_gas-fuel_use_na",
     parameters
   });
 
   getdata(money);
-  moneyAverage = moneyAverage + moneyInt;
 }
 
 function getDeliveryServicesEmissions() {
 
   let money = moneyinput.value;
-  let moneyInt = parseInt(money);
+  money = parseInt(money);
 
-  parameters.money = moneyInt;
+  parameters.money = money;
   bodyContent = JSON.stringify({
     "emission_factor": "freight_vehicle-vehicle_type_na-fuel_source_na-vehicle_weight_na-percentage_load_na",
     parameters
   });
 
   getdata(money);
-  moneyAverage = moneyAverage + moneyInt;
-  calcAverageMoney()
-  calcAverageEmissions()
-  displayAverages()
 }
 
 function calcAverageMoney(){
-
     let result = moneyAverage / 5;
     moneyAverage = result;
 }
