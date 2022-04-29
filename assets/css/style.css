@@ -32,3 +32,7 @@ body {
 .results-container {
   width: 400px;
 }
+
+#copyright {
+  text-align: center;
+}
