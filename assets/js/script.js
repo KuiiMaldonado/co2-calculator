@@ -1,5 +1,6 @@
 var getStartedBtn = document.getElementById("getStartedBtn")
 var surveyModal = document.getElementById("surveyModal")
+var dataModal = document.getElementById("dataModal")
 var closeBtn = document.getElementById("closeSurveyBtn")
 var nextBtn = document.getElementById("nextSurveyBtn")
 var questionNumber = document.querySelector("#questionLabel");
@@ -76,6 +77,7 @@ function showQuestion(question) {
 
 getStartedBtn.onclick = ()=> {
   surveyModal.style.display = "flex";
+  dataModal.classList.remove("hidden");
   setNextQuestion();
 };
 
@@ -104,6 +106,10 @@ function showResults() {
 
 closeBtn.onclick = function () {
   surveyModal.style.display = "none";
+}
+
+lastBtn.onclick = function () {
+  dataModal.classList.add("hidden");
 }
 
 window.onclick = function (event) {
