@@ -5,7 +5,6 @@ let nextBtn = document.getElementById("nextSurveyBtn")
 let questionNumber = document.querySelector("#questionLabel");
 let mainQuestion = document.querySelector("#mainQuestion");
 let progressBar = document.querySelector("#progressBar");
-let progressDiv = document.getElementById('progress-div');
 
 const WEATHER_API_URL = 'https://api.openweathermap.org/';
 const WEATHER_API_KEY = '865284dc0e4d44eddd23a2592bd48d0a';
@@ -47,35 +46,22 @@ const questions = [
 ];
 
 function setNextQuestion() {
-
-  if (currentQuestion < 5) {
-    showQuestion(questions[currentQuestion]);
-  }
-  else {
-    showFinishMessage()
-  }
-}
+  showQuestion(questions[currentQuestion]);
+};
 // Call the current question array
 function showQuestion(question) {
   // Set the question text in the "main" title
-  mainQuestion.textContent = question.question;
+  mainQuestion.innerHTML = question.question;
   // Set the question number in the "number" title
-  questionNumber.textContent = question.number;
+  questionNumber.innerHTML = question.number;
   // Change progressBar style, which in turn will make it bigger
   progressBar.style = question.style;
-}
-
-function showFinishMessage() {
-  questionNumber.textContent = 'All set!';
-  mainQuestion.textContent = 'Click the finish button to check your results';
-  nextBtn.innerHTML = 'Finish';
-}
+};
 
 nextBtn.addEventListener("click", () => {
   currentQuestion++;
-  if (currentQuestion < 5) {
-    setNextQuestion();
-  }
+  // getData();
+  setNextQuestion();
 }
 );
 
@@ -102,6 +88,7 @@ function getCityName() {
   fetch(requestURL).then(function (response) {
     return response.json();
   }).then(function (data) {
+    console.log(data);
     let weatherElement = document.getElementById('weather');
 
     weather.city = data[0].name;
@@ -138,7 +125,6 @@ function getLocationWeather(position) {
 //Call to get the location, then the weather for those coordinates;
 navigator.geolocation.getCurrentPosition(getLocationWeather);
 
-//Functions to fetch the info from ClimatiqAPI
 
 var nextbtn = document.getElementById("nextSurveyBtn")
 var clsbtn = document.getElementById("closeSurveyBtn")
