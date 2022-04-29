@@ -46,6 +46,8 @@ const questions = [
   },
 ];
 
+
+
 function setNextQuestion() {
   showQuestion(questions[currentQuestion]);
 };
@@ -472,3 +474,4 @@ var emissionAverage = ""
 function displayAverages(){
   average.textContent = "your average money spent is " + moneyAverage + "USD. and your average emissions are " + emissionAverage.toFixed(2)
 }
+
