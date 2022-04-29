@@ -60,7 +60,7 @@ This **<span style="color:#87CEEB">Average</span>** number is also represented w
 
 **Mario Mendoza:** [https://github.com/Mayo-MM](https://github.com/Mayo-MM)
 
-**Cuitlahuac Maldonado:** [ttps://github.com/KuiiMaldonado](https://github.com/KuiiMaldonado)
+**Cuitlahuac Maldonado:** [https://github.com/KuiiMaldonado](https://github.com/KuiiMaldonado)
 
 **Alexis García:** [https://github.com/lexosaur](https://github.com/lexosaur)
 
