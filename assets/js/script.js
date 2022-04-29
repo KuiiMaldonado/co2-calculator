@@ -59,13 +59,8 @@ var parameters = {
   'money_unit': 'mxn'
 };
 var bodyContent;
-var emissionAverage = "";
+var emissionAverage = 0;
 var moneyAverage = 0;
-var emissionOne  = ""
-var emissionTwo= "";
-var emissionThree= "";
-var emissionFour= "";
-var emissionFive= "";
 
 
 function setNextQuestion() {
@@ -197,7 +192,7 @@ function doAction() {
 }
 
 function getdata(money) {
-  console.log("testing 1.1")
+
   fetch("https://beta3.api.climatiq.io/estimate", {
     method: "POST",
     body: bodyContent,
@@ -205,7 +200,7 @@ function getdata(money) {
   }).then(function (response) {
     return response.json();
   }).then(function (data) {
-    console.log(data);
+
     let emissionID = 'result-' + currentQuestion;
     let moneyID = 'moneyspent-' + currentQuestion;
     let result = document.getElementById(emissionID);
@@ -227,7 +222,7 @@ function getdata(money) {
 
     result.textContent = data.constituent_gases.co2e_total.toFixed(2) + " CO2e/kg"
     moneySpent.textContent = "You spent " + money + " USD on " + category;
-    emissionOne =  data.constituent_gases.co2e_total
+    emissionAverage = emissionAverage + data.constituent_gases.co2e_total;
 
   }).catch(function (e) {
     console.log(e)
@@ -235,7 +230,7 @@ function getdata(money) {
 }
 
 function one() {
-  console.log("testing 1")
+
   let money = moneyinput.value;
   let moneyInt = parseInt(money);
 
@@ -322,11 +317,11 @@ function calcAverageMoney(){
 }
 
 function calcAverageEmissions(){
-  let result = (emissionOne + emissionTwo + emissionThree + emissionFour + emissionFive) / 5;
+  let result = emissionAverage / 5;
   console.log("average emission result (in function)" + result);
   emissionAverage = result;
 }
 
 function displayAverages(){
-  average.textContent = "your average money spent is " + moneyAverage + "USD. and your average emissions are " + emissionAverage.toFixed(2)
+  average.textContent = "your average money spent is " + moneyAverage + "USD. and your average emissions are " + emissionAverage.toFixed(2) + ' CO2e/kg';
 }
