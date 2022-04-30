@@ -1,6 +1,5 @@
 var getStartedBtn = document.getElementById("getStartedBtn")
 var surveyModal = document.getElementById("surveyModal")
-var dataModal = document.getElementById("dataModal")
 var closeBtn = document.getElementById("closeSurveyBtn")
 var nextBtn = document.getElementById("nextSurveyBtn")
 var questionNumber = document.querySelector("#questionLabel");
@@ -66,6 +65,7 @@ var quizResults = [];
 function setNextQuestion() {
   if (currentQuestion < 5) {
     showQuestion(questions[currentQuestion]);
+    moneyinput.value = '';
   }
 }
 
@@ -88,18 +88,43 @@ getStartedBtn.onclick = ()=> {
 nextBtn.addEventListener("click", (event)=> {
   if (event.target.id == 'nextSurveyBtn'){
 
-  currentQuestion++;
-  doAction();
-  if (currentQuestion < 5) {
-    setNextQuestion();
-  } else {
-    showResults();
+    if (moneyinput.value !== '') {
+
+      let isNumber = parseInt(moneyinput.value);
+      if (isNumber) {
+
+        currentQuestion++;
+        doAction();
+        if (currentQuestion < 5) {
+          setNextQuestion();
+        } else {
+          showResults();
+        }
+        if (currentQuestion == questions.length - 1) {
+          moneyinput.value = '';
+          nextBtn.innerHTML = "Complete";
+        }
+
+      }
+      else {
+        showTooltip('Must input a number');
+        moneyinput.value = '';
+      }
+    }
+    else {
+      showTooltip("Input can't be empty");
+    }
   }
-  if (currentQuestion == questions.length - 1) {
-    nextBtn.innerHTML = "Complete";
-  }
-}
 });
+
+function showTooltip(message) {
+  let tooltip = document.getElementById('input-tooltip');
+  tooltip.textContent = message;
+  let timeout = setTimeout(function (){
+    tooltip.textContent = '';
+    clearTimeout(timeout);
+  }, 2000);
+}
 
 function showResults() {
   nextBtn.innerHTML = "Next";
@@ -108,6 +133,7 @@ function showResults() {
 }
 
 closeBtn.onclick = function () {
+  moneyinput.value = '';
   surveyModal.style.display = "none";
 }
 
@@ -189,7 +215,7 @@ function renderLatestResults(results) {
     moneySPent.textContent = results[i-1].money;
     emission.textContent = results[i-1].emissions;
   }
-  average.textContent = "Your average money spent is " + results[4].totalMoney + "USD. And your average emissions are " +
+  average.textContent = "Money spent: " + results[4].totalMoney + "USD. Your emissions are: " +
                         results[4].totalEmissions.toFixed(2) + ' CO2e/kg';
 }
 
@@ -253,8 +279,6 @@ function getdata(money) {
     quizResults.push(currentResult);
 
     if (currentQuestion == 5) {
-      calcAverageMoney();
-      calcAverageEmissions();
       displayAverages();
       currentResult.totalMoney = moneyAverage;
       currentResult.totalEmissions = emissionAverage
@@ -338,16 +362,6 @@ function getDeliveryServicesEmissions() {
   getdata(money);
 }
 
-function calcAverageMoney(){
-    let result = moneyAverage / 5;
-    moneyAverage = result;
-}
-
-function calcAverageEmissions(){
-  let result = emissionAverage / 5;
-  emissionAverage = result;
-}
-
 function displayAverages(){
-  average.textContent = "Your average money spent is " + moneyAverage + "USD. And your average emissions are " + emissionAverage.toFixed(2) + ' CO2e/kg';
+  average.textContent = "Money spent: " + moneyAverage + "USD. \nYour emissions are " + emissionAverage.toFixed(2) + ' CO2e/kg';
 }
