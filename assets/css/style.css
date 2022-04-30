@@ -19,7 +19,7 @@ body {
   position: absolute;
   top: 2vh;
   right: 0;
-  left: 1vh
+  left: 1vh;
   width: 500px;
   height: 5vh;
 }
@@ -35,4 +35,8 @@ body {
 
 #copyright {
   text-align: center;
+}
+
+.hide {
+  display: none;
 }
