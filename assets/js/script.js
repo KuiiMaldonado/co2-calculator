@@ -90,23 +90,39 @@ nextBtn.addEventListener("click", (event)=> {
 
     if (moneyinput.value !== '') {
 
-      currentQuestion++;
-      doAction();
-      if (currentQuestion < 5) {
-        setNextQuestion();
-      } else {
-        showResults();
-      }
-      if (currentQuestion == questions.length - 1) {
-        nextBtn.innerHTML = "Complete";
-      }
+      let isNumber = parseInt(moneyinput.value);
+      if (isNumber) {
 
+        currentQuestion++;
+        doAction();
+        if (currentQuestion < 5) {
+          setNextQuestion();
+        } else {
+          showResults();
+        }
+        if (currentQuestion == questions.length - 1) {
+          nextBtn.innerHTML = "Complete";
+        }
+
+      }
+      else {
+        showTooltip('Must input a number');
+      }
     }
     else {
-      console.log('input vacio');
+      showTooltip("Input can't be empty");
     }
   }
 });
+
+function showTooltip(message) {
+  let tooltip = document.getElementById('input-tooltip');
+  tooltip.textContent = message;
+  let timeout = setTimeout(function (){
+    tooltip.textContent = '';
+    clearTimeout(timeout);
+  }, 2000);
+}
 
 function showResults() {
   nextBtn.innerHTML = "Next";
