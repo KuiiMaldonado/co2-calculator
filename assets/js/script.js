@@ -1,6 +1,5 @@
 var getStartedBtn = document.getElementById("getStartedBtn")
 var surveyModal = document.getElementById("surveyModal")
-var dataModal = document.getElementById("dataModal")
 var closeBtn = document.getElementById("closeSurveyBtn")
 var nextBtn = document.getElementById("nextSurveyBtn")
 var questionNumber = document.querySelector("#questionLabel");
