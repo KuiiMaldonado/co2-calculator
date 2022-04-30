@@ -88,17 +88,24 @@ getStartedBtn.onclick = ()=> {
 nextBtn.addEventListener("click", (event)=> {
   if (event.target.id == 'nextSurveyBtn'){
 
-  currentQuestion++;
-  doAction();
-  if (currentQuestion < 5) {
-    setNextQuestion();
-  } else {
-    showResults();
+    if (moneyinput.value !== '') {
+
+      currentQuestion++;
+      doAction();
+      if (currentQuestion < 5) {
+        setNextQuestion();
+      } else {
+        showResults();
+      }
+      if (currentQuestion == questions.length - 1) {
+        nextBtn.innerHTML = "Complete";
+      }
+
+    }
+    else {
+      console.log('input vacio');
+    }
   }
-  if (currentQuestion == questions.length - 1) {
-    nextBtn.innerHTML = "Complete";
-  }
-}
 });
 
 function showResults() {
