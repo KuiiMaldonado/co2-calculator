@@ -216,7 +216,7 @@ function renderLatestResults(results) {
     moneySPent.textContent = results[i-1].money;
     emission.textContent = results[i-1].emissions;
   }
-  average.textContent = "Your average money spent is " + results[4].totalMoney + "USD. And your average emissions are " +
+  average.textContent = "Money spent: " + results[4].totalMoney + "USD. Your emissions are: " +
                         results[4].totalEmissions.toFixed(2) + ' CO2e/kg';
 }
 
@@ -280,8 +280,6 @@ function getdata(money) {
     quizResults.push(currentResult);
 
     if (currentQuestion == 5) {
-      calcAverageMoney();
-      calcAverageEmissions();
       displayAverages();
       currentResult.totalMoney = moneyAverage;
       currentResult.totalEmissions = emissionAverage
@@ -365,16 +363,6 @@ function getDeliveryServicesEmissions() {
   getdata(money);
 }
 
-function calcAverageMoney(){
-    let result = moneyAverage / 5;
-    moneyAverage = result;
-}
-
-function calcAverageEmissions(){
-  let result = emissionAverage / 5;
-  emissionAverage = result;
-}
-
 function displayAverages(){
-  average.textContent = "Your average money spent is " + moneyAverage + "USD. And your average emissions are " + emissionAverage.toFixed(2) + ' CO2e/kg';
+  average.textContent = "Money spent: " + moneyAverage + "USD. \nYour emissions are " + emissionAverage.toFixed(2) + ' CO2e/kg';
 }
