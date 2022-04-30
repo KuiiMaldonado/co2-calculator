@@ -66,6 +66,7 @@ var quizResults = [];
 function setNextQuestion() {
   if (currentQuestion < 5) {
     showQuestion(questions[currentQuestion]);
+    moneyinput.value = '';
   }
 }
 
@@ -101,12 +102,14 @@ nextBtn.addEventListener("click", (event)=> {
           showResults();
         }
         if (currentQuestion == questions.length - 1) {
+          moneyinput.value = '';
           nextBtn.innerHTML = "Complete";
         }
 
       }
       else {
         showTooltip('Must input a number');
+        moneyinput.value = '';
       }
     }
     else {
@@ -131,6 +134,7 @@ function showResults() {
 }
 
 closeBtn.onclick = function () {
+  moneyinput.value = '';
   surveyModal.style.display = "none";
 }
 
