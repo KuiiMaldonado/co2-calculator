@@ -1,12 +1,12 @@
-# <span style="color:skyblue">**PROJECT 1 - CO2 PERSONAL CALC**</span>
+# <span style="color:skyblue">**PROJECT 1 - CO2e PERSONAL CALC**</span>
 
 ## <span style="color:violet">Description</span>
 
-> Welcome to the CO2 PERSONAL CALCULATOR. You will be able to get a quick estimate on your personal CO2 Impact by answering a short survey on how much do you spend on everyday activities such as buying clothes or your electricity bill. Once finished your results will be saved in the page for future reference. You can also clear and do the survey as many times as you want. We included a Weather status on the Nav which gives you tips to reduce your CO2 impact with simple actions. Future features include sharing you results directly to Twitter.
+> Welcome to the CO2e PERSONAL CALCULATOR. CO2e (carbon dioxide equivalent) is a metric measure that is used to compare emissions from various greenhouse gases. CO2e includes: carbon dioxide (CO2), methane (CH4), nitrous oxide (N2O), and the F-gases: hydrofluorocarbons (HFCs), perfluorocarbons (PFCs), sulfur hexafluoride (SF6), and nitrogen trifluoride (NF3). You will be able to get a quick estimate on your personal CO2e Impact by answering a short survey on how much do you spend on everyday activities such as buying clothes or your electricity bill. Once finished your results will be saved in the page for future reference. You can also clear and do the survey as many times as you want. Future features include sharing you results directly to Twitter and using your current weather status to provide simple eco-tips to reduce your CO2e impact.
 
 ### <span style="color:violet">How to use</span>
 
-Use the following link to access the CO2 PERSONAL CALCULATOR: [PROJECT 1 - CO2 PERSONAL CALC](address)
+Use the following link to access the CO2e PERSONAL CALCULATOR: [PROJECT 1 - CO2e PERSONAL CALC](address)
 
 ### <span style="color:violet">Usage</span>
 
