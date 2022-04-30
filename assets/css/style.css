@@ -16,16 +16,16 @@ body {
 
 #weather {
   display: flex;
-  position: absolute;
-  top: 2vh;
-  right: 0;
-  left: 1vh;
+  float: right;
+  margin-right: -27vh;
+  margin-top: -2.5vh;
+  left: 120vh;
   width: 500px;
   height: 5vh;
 }
 
 #weather h1{
-  color: rgb(255, 255, 255);
+  color: rgb(248, 238, 238);
   font-size: .9rem;
 }
 
